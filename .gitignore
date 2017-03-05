@@ -1,0 +1,6 @@
+#jetbrains files
+*.iml
+.idea/*
+
+#frontend dependencies
+front/node_modules/*
