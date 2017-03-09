@@ -1,15 +1,22 @@
-function GesturesHandler() {
+function PasswordElementsHandler() {
 
-    this.gesturesArray = [];
-    this.gesturesArraySize = 0;
+    this.elementsArray = [];
+    this.elementsArraySize = 0;
 
-    this.addGesture = function(gesture) {
-        this.gesturesArray[this.gesturesArraySize] = gesture;
+    this.addElement = function(element) {
+        this.elementsArray[this.elementsArraySize] = element;
 
-        this.gesturesArraySize++;
+        this.elementsArraySize++;
+        this.printElements();
     }
 
-    this.printGestures = function() {
-        console.log(this.gesturesArray);
+    this.printElements = function() {
+        console.log(this.elementsArray);
+    }
+
+    this.removeLastPressedKey = function() {
+        this.elementsArray.splice(--this.elementsArraySize, 1);
+
+        this.printElements();
     }
 }

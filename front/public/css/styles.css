@@ -5,3 +5,8 @@
     height: 50%;
     margin: 0 auto;
 }
+
+#character-area {
+    margin: 0 25%;
+    padding: 10px;
+}
