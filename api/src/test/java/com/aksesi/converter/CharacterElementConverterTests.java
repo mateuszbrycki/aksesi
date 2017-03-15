@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 public class CharacterElementConverterTests {
 
     @Mock
-    CharacterElement characterElement;
+    private CharacterElement characterElement;
 
     private final Character TEST_CHARACTER = 'a';
     private final Character TEST_CHARACTER_2 = 'b';

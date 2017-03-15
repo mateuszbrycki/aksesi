@@ -1,4 +1,4 @@
-package com.aksesi.converter;
+package com.aksesi.shape;
 
 /**
  * Created by Mateusz Brycki on 15/03/2017.
@@ -10,7 +10,7 @@ public enum LineDirection {
     DIAGONAL_RIGHT("DIAGONAL_RIGHT"),
     DIAGONAL_LEFT("DIAGONAL_LEFT");
 
-    private final String name;
+    private String name;
 
     LineDirection(String name) {
         this.name = name;

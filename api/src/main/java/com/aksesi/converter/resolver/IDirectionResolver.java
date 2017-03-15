@@ -1,6 +1,6 @@
 package com.aksesi.converter.resolver;
 
-import com.aksesi.converter.LineDirection;
+import com.aksesi.shape.LineDirection;
 import com.aksesi.converter.exception.ResolvingException;
 
 /**

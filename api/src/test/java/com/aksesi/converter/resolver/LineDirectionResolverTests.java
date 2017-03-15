@@ -1,15 +1,17 @@
 package com.aksesi.converter.resolver;
 
-import com.aksesi.converter.LineDirection;
+import com.aksesi.shape.LineDirection;
 import com.aksesi.converter.exception.ResolvingException;
-import com.aksesi.converter.resolver.LineDirectionResolver;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static junit.framework.TestCase.assertSame;
 
 /**
  * Created by Mateusz Brycki on 15/03/2017.
  */
+@RunWith(MockitoJUnitRunner.class)
 public class LineDirectionResolverTests {
 
     @Test
