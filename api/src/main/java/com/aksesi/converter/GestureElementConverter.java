@@ -13,6 +13,7 @@ public class GestureElementConverter extends AbstractConverter<GestureElement> {
     private IConversionStrategy conversionStrategy;
 
     public GestureElementConverter(IConversionStrategy strategy) {
+        super(GestureElement.class);
         this.conversionStrategy = strategy;
     }
 

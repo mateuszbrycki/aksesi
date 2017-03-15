@@ -7,6 +7,10 @@ import com.aksesi.element.CharacterElement;
  */
 public class CharacterElementConverter extends AbstractConverter<CharacterElement> {
 
+    public CharacterElementConverter() {
+        super(CharacterElement.class);
+    }
+
     @Override
     public String convert(CharacterElement element) {
         return element.getCharacter().toString();

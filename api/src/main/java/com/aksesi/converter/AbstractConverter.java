@@ -10,10 +10,15 @@ import java.lang.reflect.ParameterizedType;
  */
 public abstract class AbstractConverter<T extends PasswordElement> {
 
-    public final Class converts() {
-        return (Class<T>) ((ParameterizedType) getClass()
-                .getGenericSuperclass()).getActualTypeArguments()[0];
+    protected Class<T> convertedClass;
+
+    protected AbstractConverter(Class<T> convertedClass) {
+        this.convertedClass = convertedClass;
     }
 
-    abstract String convert(T element) throws ConversionException;
+    public Class<T> converts() {
+        return convertedClass;
+    }
+
+    public abstract String convert(T element) throws ConversionException;
 }
