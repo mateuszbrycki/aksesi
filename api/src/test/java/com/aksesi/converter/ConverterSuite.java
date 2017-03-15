@@ -1,5 +1,6 @@
 package com.aksesi.converter;
 
+import com.aksesi.converter.resolver.LineDirectionResolverTests;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -10,7 +11,8 @@ import org.junit.runners.Suite;
 
 @Suite.SuiteClasses({
         CharacterElementConverterTests.class,
-        GestureElementConverterTests.class
+        GestureElementConverterTests.class,
+        LineDirectionResolverTests.class
 })
 public class ConverterSuite {
 }
