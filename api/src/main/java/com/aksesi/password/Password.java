@@ -1,4 +1,4 @@
-package com.aksesi;
+package com.aksesi.password;
 
 import com.aksesi.element.PasswordElement;
 

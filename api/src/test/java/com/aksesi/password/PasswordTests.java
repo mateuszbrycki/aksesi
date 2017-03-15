@@ -1,7 +1,5 @@
 package com.aksesi.password;
 
-import com.aksesi.Password;
-import com.aksesi.element.CharacterElement;
 import com.aksesi.element.PasswordElement;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,5 +1,6 @@
 package com.aksesi;
 
+import com.aksesi.converter.ConverterSuite;
 import com.aksesi.element.ElementSuite;
 import com.aksesi.password.PasswordTests;
 import org.junit.runner.RunWith;
@@ -12,6 +13,7 @@ import org.junit.runners.Suite;
 
 @Suite.SuiteClasses({
         ElementSuite.class,
+        ConverterSuite.class,
         PasswordTests.class
 })
 public class AksesiSuite {
