@@ -48,6 +48,7 @@ public class PasswordConversionService {
         StringBuilder resultBuilder = new StringBuilder();
 
         passwordElements.forEach(e -> {
+            //TODO mbrycki what should we do if converter is not registered?
             AbstractConverter converter = converterMap.get(e.getClass());
             try {
                 resultBuilder.append(converter.convert(e));

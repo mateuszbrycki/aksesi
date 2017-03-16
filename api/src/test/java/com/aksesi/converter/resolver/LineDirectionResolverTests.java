@@ -74,6 +74,5 @@ public class LineDirectionResolverTests {
     public void testExceptionNegativeAngleTest() throws ResolvingException {
         LineDirectionResolver resolver = new LineDirectionResolver();
         LineDirection direction = resolver.resolve(-200D);
-
     }
 }

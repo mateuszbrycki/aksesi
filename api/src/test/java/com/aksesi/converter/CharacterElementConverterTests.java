@@ -58,5 +58,4 @@ public class CharacterElementConverterTests {
         assertEquals(TEST_CHARACTER_2.toString(), result);
     }
 
-
 }

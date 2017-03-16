@@ -18,7 +18,8 @@ import org.junit.runners.Suite;
         ConverterSuite.class,
         PasswordTests.class,
         LineTests.class,
-        PasswordConversionServiceTests.class
+        PasswordConversionServiceTests.class,
+        AksesiIntegrationTests.class
 })
 public class AksesiSuite {
 }
