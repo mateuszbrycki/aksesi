@@ -1,4 +1,4 @@
-## aksesi
+## Aksesi
 ["Get Noticed 2017"](http://dajsiepoznac.pl) project.
 
 ### Main idea
@@ -30,7 +30,7 @@ a(string representation of line1)b(string representation of line2)c
 
 For the user password has the same length: 3 characters and 2 gestures but for the application/database it is string consisting of many characters. 
 
-#### Capturing http request
+#### Capturing HTTP request
 A web browser sends the password as a:
 
 ```html
@@ -39,7 +39,7 @@ character-(set-of-points)-character-(set-of-points)-character
 
 If someone doesn’t have access to the converting application, then sets of points are useless because it is tremendously hard or almost impossible to find textual gestures representation.
 
-#### Passwords stored in the browser
+#### Passwords stored in a browser
 Aksesi's frontend module inserts gestures into input as the '~' character. With this approach, passwords stolen from browser storage are useless because an attacker doesn't know how the gestures look like.  
 
 ### Author & contact
