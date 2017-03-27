@@ -1,31 +1,53 @@
 <html lang="en">
 
-    <head>
-        <meta charset="utf-8">
+<head>
+    <meta charset="utf-8">
 
-        <title>Aksesi Applicaiton</title>
+    <title>Aksesi Applicaiton</title>
 
-        <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles-form.css">
 
-        <script src="../node_modules/jquery/dist/jquery.js"></script>
-        <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <script src="../node_modules/jquery-ui-dist/jquery-ui.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="../node_modules/bootstrap/js/modal.js"></script>
 
-        <script src="js/configuration.js"></script>
-        <script src="js/point.js"></script>
-        <script src="js/key.js"></script>
-        <script src="js/gesture-handler.js"></script>
-        <script src="js/gestures.js"></script>
-    </head>
+    <script src="js/aksesi.js"></script>
+    <script src="js/aksesi-classes.js"></script>
+    <script src="js/aksesi-gestures.js"></script>
 
-    <body>
-        <div id="content">
+    <script>
+        $(document).ready(function () {
+            (new AksesiConfiguration).enable("#authentication-form", false);
+        });
+    </script>
+</head>
 
-            <div id="gesture-area"></div>
-            <input type="text" id="character-area"/>
+<body>
+<div id="content">
 
-            <div id="developer-info-area"></div>
-
+    <form role="form" class="login-form" id="authentication-form" action="aksesi.localhost/login" method="POST">
+        <h3>Login to our site</h3>
+        <div class="form-group">
+            <label class="sr-only" for="form-username">Username</label>
+            <input type="text" name="form-username" placeholder="Username..."
+                   class="form-username form-control" id="form-username">
         </div>
-    </body>
+
+        <div class="form-group">
+            <div id="password-area">
+                <label class="sr-only" for="form-password">Password</label>
+                <input name="form-password" type="password" id="form-password" placeholder="Password..."
+                       class="form-control form-password"/>
+            </div>
+        </div>
+
+        <button type="submit" class="btn">Sign in!</button>
+    </form>
+
+</div>
+
+</body>
 </html>

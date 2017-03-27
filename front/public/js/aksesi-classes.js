@@ -20,3 +20,16 @@ function PasswordElementsHandler() {
         this.printElements();
     }
 }
+
+function Key(code) {
+    this.code = code
+
+    this.getKeyInfo = function() {return "code: " + this.code + ", character" + String.fromCharCode(code);}
+}
+
+function Point(x, y) {
+    this.x = x;
+    this.y = y;
+
+    this.getPointInfo = function() {return "x: " + this.x + ", y:" + this.y;}
+}
