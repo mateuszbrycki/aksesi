@@ -11,7 +11,7 @@ import com.aksesi.element.CharacterElement;
 import com.aksesi.element.GestureElement;
 import com.aksesi.element.PasswordElement;
 import com.aksesi.element.Point;
-import com.aksesi.password.Password;
+import com.aksesi.element.Password;
 import com.aksesi.service.PasswordConversionService;
 import org.junit.Before;
 import org.junit.Test;

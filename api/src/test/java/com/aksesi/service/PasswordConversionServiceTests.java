@@ -6,7 +6,7 @@ import com.aksesi.converter.exception.ConversionException;
 import com.aksesi.element.CharacterElement;
 import com.aksesi.element.GestureElement;
 import com.aksesi.element.PasswordElement;
-import com.aksesi.password.Password;
+import com.aksesi.element.Password;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +15,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;

@@ -8,17 +8,20 @@ import com.aksesi.converter.resolver.IDirectionResolver;
 import com.aksesi.element.GestureElement;
 import com.aksesi.element.Point;
 import com.aksesi.shape.Shape;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
  * Created by Mateusz Brycki on 15/03/2017.
  */
+@Component
 public class LinearConversionStrategy implements IConversionStrategy {
 
     private IDirectionResolver resolver;
 
-    public LinearConversionStrategy(IDirectionResolver resolver) {
+    public LinearConversionStrategy(@Autowired IDirectionResolver resolver) {
         this.resolver = resolver;
     }
 

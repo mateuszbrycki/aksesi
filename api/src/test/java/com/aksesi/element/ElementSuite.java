@@ -11,7 +11,8 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
         CharacterElementTests.class,
         GestureElementTests.class,
-        PointTests.class
+        PointTests.class,
+        PasswordTests.class
 })
 public class ElementSuite {
 }

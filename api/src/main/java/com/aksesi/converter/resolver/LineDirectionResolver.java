@@ -2,10 +2,12 @@ package com.aksesi.converter.resolver;
 
 import com.aksesi.shape.LineDirection;
 import com.aksesi.converter.exception.ResolvingException;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by Mateusz Brycki on 15/03/2017.
  */
+@Component
 public class LineDirectionResolver implements IDirectionResolver{
 
     public LineDirection resolve(Double angleOfInclination) throws ResolvingException {

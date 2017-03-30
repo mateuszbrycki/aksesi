@@ -3,7 +3,7 @@ package com.aksesi.service;
 import com.aksesi.converter.AbstractConverter;
 import com.aksesi.converter.exception.ConversionException;
 import com.aksesi.element.PasswordElement;
-import com.aksesi.password.Password;
+import com.aksesi.element.Password;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -17,6 +17,8 @@ import java.util.stream.Collectors;
 public class PasswordConversionService {
 
     Map<Class, AbstractConverter> converterMap = new HashMap<>();
+
+    public PasswordConversionService() {}
 
     public PasswordConversionService registerConverter(AbstractConverter converter) {
         converterMap.put(
