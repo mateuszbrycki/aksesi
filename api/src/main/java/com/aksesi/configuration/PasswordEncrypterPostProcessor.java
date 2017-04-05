@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Consumer;
 
 /**
  * Created by Mateusz Brycki on 04/04/2017.
@@ -29,13 +30,14 @@ public class PasswordEncrypterPostProcessor implements BeanPostProcessor, Applic
             //find all of AbstractConverter implementations
             Map<String, AbstractConverter> beansOfType = applicationContext.getBeansOfType(AbstractConverter.class);
 
+            //register all of found converters
+            Set<AbstractConverter> converters = new HashSet(beansOfType.values());
+
             //cast bean
             PasswordEncrypter conversionFactoryBean = (PasswordEncrypter) bean;
+            Consumer<AbstractConverter> converterRegistrationLogic = new ConverterRegistrationLogic(conversionFactoryBean);
 
-            //register all of found converters
-            Set converters = new HashSet(beansOfType.values());
-
-            converters.forEach(c -> conversionFactoryBean.registerConverter((AbstractConverter) c));
+            converters.forEach(converterRegistrationLogic::accept);
         }
 
         return bean;
@@ -49,5 +51,18 @@ public class PasswordEncrypterPostProcessor implements BeanPostProcessor, Applic
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
+    }
+
+    private class ConverterRegistrationLogic implements Consumer<AbstractConverter>
+    {
+        private PasswordEncrypter conversionFactoryBean;
+
+        public ConverterRegistrationLogic(PasswordEncrypter conversionFactoryBean) {
+            this.conversionFactoryBean = conversionFactoryBean;
+        }
+
+        @Override public void accept(AbstractConverter converter) {
+            conversionFactoryBean.registerConverter(converter);
+        }
     }
 }

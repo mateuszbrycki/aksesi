@@ -8,6 +8,7 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
+import java.util.function.Consumer;
 
 /**
  * Created by Mateusz Brycki on 05/04/2017.
@@ -26,25 +27,38 @@ public class TargetClassProviderPostProcessor implements BeanPostProcessor {
             TargetClassProvider targetClassProvider = (TargetClassProvider) bean;
 
             Set<Class<?>> typesAnnotatedWith = new Reflections(APPLICATION_INFRASTRUCTURE_PACKAGE).getTypesAnnotatedWith(annotationClass);
-            typesAnnotatedWith
-                    .forEach(bd -> {
-                        Class clazz = null;
-                        try {
-                            clazz = Class.forName(bd.getName());
-                        } catch (ClassNotFoundException e) {
-                            return;
-                        }
-                        Representation representation = bd.getAnnotation(annotationClass);
-                        targetClassProvider.register(clazz, representation.element());
-                    });
 
+            Consumer<Class<?>> register = new ClassRegistrationLogic(targetClassProvider);
+            typesAnnotatedWith.forEach(register::accept);
         }
 
         return bean;
     }
 
+
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
         return bean;
+    }
+
+    private class ClassRegistrationLogic implements Consumer<Class<?>> {
+
+        TargetClassProvider provider;
+        public ClassRegistrationLogic(TargetClassProvider provider) {
+            this.provider = provider;
+        }
+
+        @Override public void accept(Class<?> aClass)
+        {
+            Class clazz;
+            try {
+                clazz = Class.forName(aClass.getName());
+            } catch (ClassNotFoundException e) {
+                return;
+            }
+
+            Representation representation = aClass.getAnnotation(annotationClass);
+            provider.register(clazz, representation.element());
+        }
     }
 }

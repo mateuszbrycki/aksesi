@@ -20,7 +20,7 @@ import java.util.Set;
  * Created by Mateusz Brycki on 29/03/2017.
  */
 @Component
-public class ConverterRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor, BeanPostProcessor, ApplicationContextAware {
+public class ConverterRegistryPostProcessor implements BeanPostProcessor, ApplicationContextAware {
 
     private final String CONVERSION_SERVICE_NAME = "mvcConversionService";
 
@@ -28,12 +28,7 @@ public class ConverterRegistryPostProcessor implements BeanDefinitionRegistryPos
 
     private static final Logger logger = Logger.getLogger(ConverterRegistryPostProcessor.class);
 
-    public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
-    }
-
-    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-    }
-
+    @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
         if (CONVERSION_SERVICE_NAME.equals(beanName)) {
             logger.debug("ConversionService bean detected");
@@ -48,10 +43,12 @@ public class ConverterRegistryPostProcessor implements BeanDefinitionRegistryPos
         return bean;
     }
 
+    @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
         return bean;
     }
 
+    @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         appCtx = applicationContext;
     }
