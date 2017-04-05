@@ -1,18 +1,17 @@
 package com.aksesi;
 
-import com.aksesi.converter.AbstractConverter;
-import com.aksesi.converter.CharacterElementConverter;
-import com.aksesi.converter.GestureElementConverter;
-import com.aksesi.converter.resolver.IDirectionResolver;
-import com.aksesi.converter.resolver.LineDirectionResolver;
-import com.aksesi.converter.strategy.IConversionStrategy;
-import com.aksesi.converter.strategy.LinearConversionStrategy;
-import com.aksesi.element.CharacterElement;
-import com.aksesi.element.GestureElement;
-import com.aksesi.element.PasswordElement;
-import com.aksesi.element.Point;
-import com.aksesi.element.Password;
-import com.aksesi.service.PasswordConversionService;
+import com.aksesi.application.converter.AbstractConverter;
+import com.aksesi.application.converter.CharacterConverter;
+import com.aksesi.application.converter.GestureConverter;
+import com.aksesi.application.shape.direction.IDirectionResolver;
+import com.aksesi.application.shape.direction.LineDirectionResolver;
+import com.aksesi.application.converter.strategy.IConversionStrategy;
+import com.aksesi.application.converter.strategy.LinearConversionStrategy;
+import com.aksesi.application.element.Character;
+import com.aksesi.application.element.Gesture;
+import com.aksesi.application.element.PasswordElement;
+import com.aksesi.application.element.Password;
+import com.aksesi.application.encrypter.PasswordEncrypter;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,7 +29,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(MockitoJUnitRunner.class)
 public class AksesiIntegrationTests {
 
-    PasswordConversionService passwordConversionService;
+    PasswordEncrypter passwordEncrypter;
     AbstractConverter gestureElementConverter;
     AbstractConverter characterElementConverter;
 
@@ -44,11 +43,11 @@ public class AksesiIntegrationTests {
         lineDirectionResolver = new LineDirectionResolver();
         linearConversionStrategy = new LinearConversionStrategy(lineDirectionResolver);
 
-        gestureElementConverter = new GestureElementConverter(linearConversionStrategy);
-        characterElementConverter = new CharacterElementConverter();
+        gestureElementConverter = new GestureConverter(linearConversionStrategy);
+        characterElementConverter = new CharacterConverter();
 
-        passwordConversionService = new PasswordConversionService();
-        passwordConversionService
+        passwordEncrypter = new PasswordEncrypter();
+        passwordEncrypter
                 .registerConverter(gestureElementConverter)
                 .registerConverter(characterElementConverter);
     }
@@ -60,7 +59,7 @@ public class AksesiIntegrationTests {
 
         );
 
-        String result = passwordConversionService.process(password);
+        String result = passwordEncrypter.encrypt(password);
 
         assertTrue(result.isEmpty());
     }
@@ -68,10 +67,10 @@ public class AksesiIntegrationTests {
     @Test
     public void onlyCharacterElementTest() {
         setupPassword(
-                new CharacterElement('a')
+                new Character('a')
         );
 
-        String result = passwordConversionService.process(password);
+        String result = passwordEncrypter.encrypt(password);
 
         assertEquals("a", result);
 
@@ -80,13 +79,13 @@ public class AksesiIntegrationTests {
     @Test
     public void onlyGestureElementTest() {
         setupPassword(
-                new GestureElement(Arrays.asList(
-                        new Point(1L, 1L),
-                        new Point(2L, 2L)
+                new Gesture(Arrays.asList(
+                        new Gesture.Point(1L, 1L),
+                        new Gesture.Point(2L, 2L)
                 ))
         );
 
-        String result = passwordConversionService.process(password);
+        String result = passwordEncrypter.encrypt(password);
 
         assertEquals("LineDIAGONAL_RIGHT", result);
     }
@@ -94,21 +93,21 @@ public class AksesiIntegrationTests {
     @Test
     public void combineGesturesAndCharactersElementTest1() {
         setupPassword(
-                new GestureElement(Arrays.asList( //LineDIAGONAL_RIGHT
-                        new Point(1L, 1L),
-                        new Point(2L, 2L)
+                new Gesture(Arrays.asList( //LineDIAGONAL_RIGHT
+                        new Gesture.Point(1L, 1L),
+                        new Gesture.Point(2L, 2L)
                 )),
-                new CharacterElement('a'), //a
-                new CharacterElement('b'), //b
-                new CharacterElement('d'), //d
-                new GestureElement(Arrays.asList( //LineDIAGONAL_LEFT
-                        new Point(1L, 2L),
-                        new Point(2L, 1L)
+                new Character('a'), //a
+                new Character('b'), //b
+                new Character('d'), //d
+                new Gesture(Arrays.asList( //LineDIAGONAL_LEFT
+                        new Gesture.Point(1L, 2L),
+                        new Gesture.Point(2L, 1L)
                 ))
 
         );
 
-        String result = passwordConversionService.process(password);
+        String result = passwordEncrypter.encrypt(password);
 
         assertEquals("LineDIAGONAL_RIGHTabdLineDIAGONAL_LEFT", result);
     }
@@ -116,27 +115,27 @@ public class AksesiIntegrationTests {
     @Test
     public void combineGesturesAndCharactersElementTest2() {
         setupPassword(
-                new GestureElement(Arrays.asList( //LineDIAGONAL_RIGHT
-                        new Point(1L, 1L),
-                        new Point(2L, 2L)
+                new Gesture(Arrays.asList( //LineDIAGONAL_RIGHT
+                        new Gesture.Point(1L, 1L),
+                        new Gesture.Point(2L, 2L)
                 )),
-                new CharacterElement('a'), //a
-                new GestureElement(Arrays.asList( //LineDIAGONAL_VETRICAL
-                        new Point(1L, 1L),
-                        new Point(1L, 2L)
+                new Character('a'), //a
+                new Gesture(Arrays.asList( //LineDIAGONAL_VETRICAL
+                        new Gesture.Point(1L, 1L),
+                        new Gesture.Point(1L, 2L)
                 )),
-                new CharacterElement('b'), //b
-                new GestureElement(Arrays.asList( //LineHORIZONTAL
-                        new Point(1L, 1L),
-                        new Point(2L, 1L)
+                new Character('b'), //b
+                new Gesture(Arrays.asList( //LineHORIZONTAL
+                        new Gesture.Point(1L, 1L),
+                        new Gesture.Point(2L, 1L)
                 )),
-                new CharacterElement('\\'), // \
-                new CharacterElement('$') //d
+                new Character('\\'), // \
+                new Character('$') //d
 
 
         );
 
-        String result = passwordConversionService.process(password);
+        String result = passwordEncrypter.encrypt(password);
 
         assertEquals("LineDIAGONAL_RIGHTaLineVERTICALbLineHORIZONTAL\\$".length(), result.length());
         assertEquals("LineDIAGONAL_RIGHTaLineVERTICALbLineHORIZONTAL\\$", result);
@@ -145,16 +144,16 @@ public class AksesiIntegrationTests {
     @Test
     public void specialCharactersTest2() {
         setupPassword(
-                new CharacterElement('/'), // /
-                new CharacterElement('$'), // $
-                new CharacterElement('\\'), // \
-                new CharacterElement('~'), // ~
-                new CharacterElement('`') // `
+                new Character('/'), // /
+                new Character('$'), // $
+                new Character('\\'), // \
+                new Character('~'), // ~
+                new Character('`') // `
 
 
         );
 
-        String result = passwordConversionService.process(password);
+        String result = passwordEncrypter.encrypt(password);
 
         assertEquals("/$\\~`".length(), result.length());
         assertEquals("/$\\~`", result);

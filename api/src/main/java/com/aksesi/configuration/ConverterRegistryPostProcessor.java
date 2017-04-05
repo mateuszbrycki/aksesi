@@ -10,6 +10,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.format.support.DefaultFormattingConversionService;
+import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -18,14 +19,16 @@ import java.util.Set;
 /**
  * Created by Mateusz Brycki on 29/03/2017.
  */
+@Component
 public class ConverterRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor, BeanPostProcessor, ApplicationContextAware {
 
     private final String CONVERSION_SERVICE_NAME = "mvcConversionService";
 
+    private ApplicationContext appCtx;
+
     private static final Logger logger = Logger.getLogger(ConverterRegistryPostProcessor.class);
 
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
-        //registry.registerBeanDefinition(CONVERSION_SERVICE_NAME, BeanDefinitionBuilder.rootBeanDefinition(ConversionServiceFactoryBean.class).getBeanDefinition());
     }
 
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
@@ -33,7 +36,7 @@ public class ConverterRegistryPostProcessor implements BeanDefinitionRegistryPos
 
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
         if (CONVERSION_SERVICE_NAME.equals(beanName)) {
-            logger.info("ConversionService bean detected");
+            logger.debug("ConversionService bean detected");
 
             Map<String, Converter> beansOfType = appCtx.getBeansOfType(Converter.class);
             DefaultFormattingConversionService conversionFactoryBean = (DefaultFormattingConversionService) bean;
@@ -48,8 +51,6 @@ public class ConverterRegistryPostProcessor implements BeanDefinitionRegistryPos
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
         return bean;
     }
-
-    ApplicationContext appCtx;
 
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         appCtx = applicationContext;

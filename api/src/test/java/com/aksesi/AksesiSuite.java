@@ -1,10 +1,9 @@
 package com.aksesi;
 
-import com.aksesi.converter.ConverterSuite;
-import com.aksesi.element.ElementSuite;
-import com.aksesi.element.PasswordTests;
-import com.aksesi.service.PasswordConversionServiceTests;
-import com.aksesi.shape.LineTests;
+import com.aksesi.application.converter.ConverterSuite;
+import com.aksesi.application.element.ElementSuite;
+import com.aksesi.application.encrypter.PasswordEncrypterTests;
+import com.aksesi.application.shape.LineTests;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -17,9 +16,10 @@ import org.junit.runners.Suite;
         ElementSuite.class,
         ConverterSuite.class,
         LineTests.class,
-        PasswordConversionServiceTests.class,
+        PasswordEncrypterTests.class,
         AksesiIntegrationTests.class,
-        AksesiApplicationTests.class
+        AksesiContextApplicationTests.class,
+        AksesiContextApplicationTestParametrized.class
 })
 public class AksesiSuite {
 }
