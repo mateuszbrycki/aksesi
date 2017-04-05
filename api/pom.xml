@@ -54,7 +54,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>4.3.3.BUILD-SNAPSHOT</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-core-asl -->
         <dependency>

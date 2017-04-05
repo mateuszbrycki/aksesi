@@ -1,6 +1,7 @@
 package com.aksesi.application.converter.strategy;
 
 import com.aksesi.application.converter.exception.ConversionException;
+import com.aksesi.application.shape.direction.AngleOfInclination;
 import com.aksesi.application.shape.direction.exception.ResolvingException;
 import com.aksesi.application.shape.direction.IDirectionResolver;
 import com.aksesi.application.element.Gesture;
@@ -17,7 +18,9 @@ import java.util.List;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyDouble;
+import static org.mockito.ArgumentMatchers.anyObject;
 import static org.mockito.Mockito.when;
 
 /**
@@ -46,7 +49,7 @@ public class LinearConversionStrategyTests {
     public void resolverThrowsExceptionTest() throws ConversionException, ResolvingException {
 
         LinearConversionStrategy strategy = new LinearConversionStrategy(resolver);
-        when(resolver.resolve(anyDouble())).thenThrow(new ResolvingException("Message"));
+        when(resolver.resolve(any(AngleOfInclination.class))).thenThrow(new ResolvingException("Message"));
         setupGesturePoints(
                 Arrays.asList(
                         new Gesture.Point(1L, 1L),
@@ -61,7 +64,7 @@ public class LinearConversionStrategyTests {
     public void horizontalLineGestureTest() throws ConversionException, ResolvingException {
 
         LinearConversionStrategy strategy = new LinearConversionStrategy(resolver);
-        when(resolver.resolve(anyDouble())).thenReturn(Line.LineDirection.HORIZONTAL);
+        when(resolver.resolve(any(AngleOfInclination.class))).thenReturn(Line.LineDirection.HORIZONTAL);
 
         setupGesturePoints(
                 Arrays.asList(
@@ -80,7 +83,7 @@ public class LinearConversionStrategyTests {
     public void verticalLineGestureTest() throws ConversionException, ResolvingException {
 
         LinearConversionStrategy strategy = new LinearConversionStrategy(resolver);
-        when(resolver.resolve(anyDouble())).thenReturn(Line.LineDirection.VERTICAL);
+        when(resolver.resolve(any(AngleOfInclination.class))).thenReturn(Line.LineDirection.VERTICAL);
 
         setupGesturePoints(
                 Arrays.asList(
@@ -99,7 +102,7 @@ public class LinearConversionStrategyTests {
     public void diagonalRightLineGestureTest() throws ConversionException, ResolvingException {
 
         LinearConversionStrategy strategy = new LinearConversionStrategy(resolver);
-        when(resolver.resolve(anyDouble())).thenReturn(Line.LineDirection.DIAGONAL_RIGHT);
+        when(resolver.resolve(any(AngleOfInclination.class))).thenReturn(Line.LineDirection.DIAGONAL_RIGHT);
 
         setupGesturePoints(
                 Arrays.asList(
@@ -118,7 +121,7 @@ public class LinearConversionStrategyTests {
     public void diagonalLeftLineGestureTest() throws ConversionException, ResolvingException {
 
         LinearConversionStrategy strategy = new LinearConversionStrategy(resolver);
-        when(resolver.resolve(anyDouble())).thenReturn(Line.LineDirection.DIAGONAL_LEFT);
+        when(resolver.resolve(any(AngleOfInclination.class))).thenReturn(Line.LineDirection.DIAGONAL_LEFT);
 
         setupGesturePoints(
                 Arrays.asList(

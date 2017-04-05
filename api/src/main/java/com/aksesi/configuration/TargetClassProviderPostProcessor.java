@@ -1,22 +1,12 @@
 package com.aksesi.configuration;
 
-import com.aksesi.application.converter.AbstractConverter;
 import com.aksesi.infrastructure.annotation.Representation;
 import com.aksesi.infrastructure.converter.TargetClassProvider;
 import org.reflections.Reflections;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
-import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.stereotype.Component;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -57,5 +47,4 @@ public class TargetClassProviderPostProcessor implements BeanPostProcessor {
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
         return bean;
     }
-
 }

@@ -2,6 +2,7 @@ package com.aksesi.application.converter.strategy;
 
 import com.aksesi.application.shape.Line;
 import com.aksesi.application.converter.exception.ConversionException;
+import com.aksesi.application.shape.direction.AngleOfInclination;
 import com.aksesi.application.shape.direction.exception.ResolvingException;
 import com.aksesi.application.shape.direction.IDirectionResolver;
 import com.aksesi.application.element.Gesture;
@@ -33,7 +34,7 @@ public class LinearConversionStrategy implements IConversionStrategy {
         Gesture.Point firstPoint = points.get(0);
         Gesture.Point secondPoint = points.get(points.size() - 1);
 
-        Double angleOfInclination = getAngleOfInclination(firstPoint, secondPoint);
+        AngleOfInclination angleOfInclination = getAngleOfInclination(firstPoint, secondPoint);
 
         try {
             Line.LineDirection lineDirection = resolver.resolve(angleOfInclination);
@@ -44,7 +45,7 @@ public class LinearConversionStrategy implements IConversionStrategy {
         }
     }
 
-    private Double getAngleOfInclination(Gesture.Point firstPoint, Gesture.Point secondPoint) {
+    private AngleOfInclination getAngleOfInclination(Gesture.Point firstPoint, Gesture.Point secondPoint) {
 
         Double angleOfInclination = Math.toDegrees(Math.atan2(secondPoint.getY() - firstPoint.getY(), secondPoint.getX() - firstPoint.getX()));
 
@@ -52,6 +53,6 @@ public class LinearConversionStrategy implements IConversionStrategy {
             angleOfInclination += 180;
         }
 
-        return angleOfInclination;
+        return new AngleOfInclination(angleOfInclination);
     }
 }

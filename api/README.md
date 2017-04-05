@@ -13,7 +13,7 @@ To run tests use
 To run mutation tests use
 
     cd aksesi/api
-    mvn clean org.pitest:pitest-maven:mutationCoverage
+    mvn clean install org.pitest:pitest-maven:mutationCoverage
 
 ### Author & contact
  Author: Mateusz Brycki

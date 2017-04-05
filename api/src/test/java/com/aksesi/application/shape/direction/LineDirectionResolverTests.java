@@ -19,26 +19,26 @@ public class LineDirectionResolverTests {
     public void testHorizontalLineTest() throws ResolvingException {
         LineDirectionResolver resolver = new LineDirectionResolver();
 
-        Line.LineDirection direction = resolver.resolve(9.9D);
+        Line.LineDirection direction = resolver.resolve(new AngleOfInclination(9.9D));
         assertSame(Line.LineDirection.HORIZONTAL, direction);
 
-        direction = resolver.resolve(171D);
+        direction = resolver.resolve(new AngleOfInclination(171D));
         assertSame(Line.LineDirection.HORIZONTAL, direction);
 
-        direction = resolver.resolve(0D);
+        direction = resolver.resolve(new AngleOfInclination(0D));
         assertSame(Line.LineDirection.HORIZONTAL, direction);
 
-        direction = resolver.resolve(180D);
+        direction = resolver.resolve(new AngleOfInclination(180D));
         assertSame(Line.LineDirection.HORIZONTAL, direction);
     }
 
     @Test
     public void testDiagonalRightLineTest() throws ResolvingException {
         LineDirectionResolver resolver = new LineDirectionResolver();
-        Line.LineDirection direction = resolver.resolve(79D);
+        Line.LineDirection direction = resolver.resolve(new AngleOfInclination(79D));
         assertSame(Line.LineDirection.DIAGONAL_RIGHT, direction);
 
-        direction = resolver.resolve(10D);
+        direction = resolver.resolve(new AngleOfInclination(10D));
         assertSame(Line.LineDirection.DIAGONAL_RIGHT, direction);
     }
 
@@ -46,10 +46,10 @@ public class LineDirectionResolverTests {
     public void testVerticalLineTest() throws ResolvingException {
         LineDirectionResolver resolver = new LineDirectionResolver();
 
-        Line.LineDirection direction = resolver.resolve(109D);
+        Line.LineDirection direction = resolver.resolve(new AngleOfInclination(109D));
         assertSame(Line.LineDirection.VERTICAL, direction);
 
-        direction = resolver.resolve(80D);
+        direction = resolver.resolve(new AngleOfInclination(80D));
         assertSame(Line.LineDirection.VERTICAL, direction);
     }
 
@@ -57,23 +57,23 @@ public class LineDirectionResolverTests {
     public void testDiagonalLeftLineTest() throws ResolvingException {
         LineDirectionResolver resolver = new LineDirectionResolver();
 
-        Line.LineDirection direction = resolver.resolve(169D);
+        Line.LineDirection direction = resolver.resolve(new AngleOfInclination(169D));
         assertSame(Line.LineDirection.DIAGONAL_LEFT, direction);
 
-        direction = resolver.resolve(110D);
+        direction = resolver.resolve(new AngleOfInclination(110D));
         assertSame(Line.LineDirection.DIAGONAL_LEFT, direction);
     }
 
     @Test(expected = ResolvingException.class)
     public void testExceptionTest() throws ResolvingException {
         LineDirectionResolver resolver = new LineDirectionResolver();
-        Line.LineDirection direction = resolver.resolve(200D);
+        Line.LineDirection direction = resolver.resolve(new AngleOfInclination(200D));
 
     }
 
     @Test(expected = ResolvingException.class)
     public void testExceptionNegativeAngleTest() throws ResolvingException {
         LineDirectionResolver resolver = new LineDirectionResolver();
-        Line.LineDirection direction = resolver.resolve(-200D);
+        Line.LineDirection direction = resolver.resolve(new AngleOfInclination(-200D));
     }
 }

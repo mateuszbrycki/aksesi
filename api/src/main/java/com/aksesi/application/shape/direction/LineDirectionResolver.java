@@ -10,20 +10,36 @@ import org.springframework.stereotype.Component;
 @Component
 public class LineDirectionResolver implements IDirectionResolver{
 
-    public Line.LineDirection resolve(Double angleOfInclination) throws ResolvingException {
+    public Line.LineDirection resolve(AngleOfInclination angleOfInclination) throws ResolvingException {
 
-        //TODO mbrycki refactor
-        if(angleOfInclination < 10 &&  angleOfInclination >= 0
-                || angleOfInclination <= 180 && angleOfInclination >= 170) {
+        Double angleValue = angleOfInclination.angle();
+        if(isHorizontal(angleValue)) {
             return Line.LineDirection.HORIZONTAL;
-        } else if(angleOfInclination < 80  && angleOfInclination >= 10) {
+        } else if(isDiagonalRight(angleValue)) {
             return Line.LineDirection.DIAGONAL_RIGHT;
-        } else if(angleOfInclination < 110 && angleOfInclination >= 80) {
+        } else if(isVertical(angleValue)) {
             return Line.LineDirection.VERTICAL;
-        } else if(angleOfInclination < 170 && angleOfInclination >= 110) {
+        } else if(isDiagonalLeft(angleValue)) {
             return Line.LineDirection.DIAGONAL_LEFT;
         }
 
         throw new ResolvingException("Unable to resolve");
+    }
+
+    private Boolean isHorizontal(Double angleOfInclination) {
+        return (angleOfInclination >= 0 && angleOfInclination < 10)
+                || (angleOfInclination >= 170 && angleOfInclination <= 180);
+    }
+
+    private Boolean isDiagonalRight(Double angleOfInclination) {
+        return angleOfInclination >= 10 && angleOfInclination < 80;
+    }
+
+    private Boolean isVertical(Double angleOfInclination) {
+        return angleOfInclination >= 80 && angleOfInclination < 110;
+    }
+
+    private Boolean isDiagonalLeft(Double angleOfInclination) {
+        return angleOfInclination >= 110 && angleOfInclination < 170;
     }
 }

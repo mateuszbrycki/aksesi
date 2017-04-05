@@ -21,10 +21,6 @@ public class PasswordEncrypterPostProcessor implements BeanPostProcessor, Applic
 
     private ApplicationContext applicationContext;
 
-    private final String ENCRYPTER_NAME = "passwordEncrypter";
-
-    private static final Logger logger = Logger.getLogger(PasswordEncrypterPostProcessor.class);
-
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
 

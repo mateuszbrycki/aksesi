@@ -8,5 +8,5 @@ import com.aksesi.application.shape.direction.exception.ResolvingException;
  */
 public interface IDirectionResolver {
 
-    Line.LineDirection resolve(Double value) throws ResolvingException;
+    Line.LineDirection resolve(AngleOfInclination angle) throws ResolvingException;
 }
