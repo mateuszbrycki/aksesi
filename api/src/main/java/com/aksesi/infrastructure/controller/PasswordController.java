@@ -1,6 +1,7 @@
 package com.aksesi.infrastructure.controller;
 
 import com.aksesi.application.element.Password;
+import com.aksesi.infrastructure.dto.AuthenticationRequestDTO;
 import com.aksesi.infrastructure.dto.PasswordDTO;
 import com.aksesi.application.encrypter.PasswordEncrypter;
 import com.aksesi.infrastructure.response.MessageResponse;
@@ -26,9 +27,9 @@ public class PasswordController {
 
     @PostMapping
     public @ResponseBody
-    ResponseEntity<MessageResponse> decodePassword(@RequestBody PasswordDTO password) {
+    ResponseEntity<MessageResponse> decodePassword(@RequestBody AuthenticationRequestDTO request) {
 
-        Password passwordToConvert = conversionService.convert(password, Password.class);
+        Password passwordToConvert = conversionService.convert(request.getPassword(), Password.class);
 
         String result = passwordConverter.encrypt(passwordToConvert);
 

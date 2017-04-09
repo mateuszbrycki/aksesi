@@ -1,4 +1,4 @@
-
+//TODO mbrycki close all those loginc in a class
 var isMouseButtonPressed = false;
 var gestureNumber = 0;
 

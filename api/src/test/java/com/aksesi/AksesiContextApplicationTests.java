@@ -1,10 +1,6 @@
 package com.aksesi;
 
-import com.aksesi.infrastructure.dto.PointDTO;
-import com.aksesi.infrastructure.dto.GestureDTO;
-import com.aksesi.infrastructure.dto.PasswordElementDTO;
-import com.aksesi.infrastructure.dto.CharacterDTO;
-import com.aksesi.infrastructure.dto.PasswordDTO;
+import com.aksesi.infrastructure.dto.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -33,6 +29,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 public class AksesiContextApplicationTests {
 
+    private final static String TEST_LOGIN = "TEST";
+
     @Autowired
     private WebApplicationContext webApplicationContext;
 
@@ -46,11 +44,11 @@ public class AksesiContextApplicationTests {
 
     @Test
     public void testHttpStatusWithCharacter() throws Exception {
-        PasswordDTO password = setupPassword(
+        AuthenticationRequestDTO request = setupPassword(
                 new CharacterDTO('a')
         );
 
-        String requestJson = convertToJSON(password);
+        String requestJson = convertToJSON(request);
 
         mockMvc.perform(post("/password")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -62,13 +60,13 @@ public class AksesiContextApplicationTests {
 
     @Test
     public void testHttpStatusWithCharacterAndGesture() throws Exception {
-        PasswordDTO password = setupPassword(
+        AuthenticationRequestDTO request = setupPassword(
                 new GestureDTO(Arrays.asList(
                         new PointDTO(1L,1L),new PointDTO(2L,2L)
                 ))
         );
 
-        String requestJson = convertToJSON(password);
+        String requestJson = convertToJSON(request);
 
         mockMvc.perform(post("/password")
                     .contentType(MediaType.APPLICATION_JSON)
@@ -80,14 +78,14 @@ public class AksesiContextApplicationTests {
 
     @Test
     public void testHttpStatusWithMixedPassword() throws Exception {
-        PasswordDTO password = setupPassword(
+        AuthenticationRequestDTO request = setupPassword(
                 new CharacterDTO('a'),
                 new GestureDTO(Arrays.asList(
                     new PointDTO(1L,1L),new PointDTO(2L,2L)
                 ))
         );
 
-        String requestJson = convertToJSON(password);
+        String requestJson = convertToJSON(request);
 
         mockMvc.perform(post("/password")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -97,10 +95,13 @@ public class AksesiContextApplicationTests {
                 .andExpect(content().json(prepareResponse("aLineDIAGONAL_RIGHT")));
     }
 
-    private PasswordDTO setupPassword(PasswordElementDTO...elements) {
+    private AuthenticationRequestDTO setupPassword(PasswordElementDTO...elements) {
 
         PasswordDTO password = new PasswordDTO(Arrays.asList(elements));
-        return password;
+        ConfigurationDTO configuration = new ConfigurationDTO();
+        AuthenticationRequestDTO request = new AuthenticationRequestDTO(TEST_LOGIN, password, configuration);
+
+        return request;
     }
 
     private String convertToJSON(Object value) throws Exception {
