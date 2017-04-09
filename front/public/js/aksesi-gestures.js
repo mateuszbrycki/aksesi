@@ -23,6 +23,21 @@ function appendGestureCharacterRepresentation() {
     $(CHARACTER_AREA_NAME_DOT).val(characterAreaInput + GESTURE_CHARACTER_REPRESENTATION);
 }
 
+function resetModuleState(form) {
+    isMouseButtonPressed = false;
+    gestureNumber = 0;
+
+    pointsArray = [];
+    pointsArrayNumber = 0;
+
+    passwordElementsHandler = new PasswordElementsHandler();
+
+    if(form !== null && form.length > 0) {
+        form[0].reset();
+    }
+}
+
+
 function logDeveloperInfo(message) {
     $(DEVELOPER_INFO_AREA_NAME).append(message + ', number: ' + gestureNumber + '<br />');
 }

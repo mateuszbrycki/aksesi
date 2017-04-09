@@ -56,6 +56,7 @@ function AksesiConfiguration() {
                 data: $actionData,
                 success: function (callback) {
                    console.log(callback.message);
+                   resetModuleState($form);
                 },
                 error: function (xhr) {
                     console.log(xhr.responseText);
