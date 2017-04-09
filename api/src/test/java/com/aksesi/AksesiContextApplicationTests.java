@@ -21,6 +21,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.util.Arrays;
 
+import static com.aksesi.utils.ResponseUtils.prepareResponse;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -56,7 +57,7 @@ public class AksesiContextApplicationTests {
                 .content(requestJson)
         )
                 .andExpect(status().isOk())
-                .andExpect(content().string("a"));
+                .andExpect(content().json(prepareResponse("a")));
     }
 
     @Test
@@ -74,7 +75,7 @@ public class AksesiContextApplicationTests {
                     .content(requestJson)
                 )
                 .andExpect(status().isOk())
-                .andExpect(content().string("LineDIAGONAL_RIGHT"));
+                .andExpect(content().json(prepareResponse("LineDIAGONAL_RIGHT")));
     }
 
     @Test
@@ -93,7 +94,7 @@ public class AksesiContextApplicationTests {
                 .content(requestJson)
         )
                 .andExpect(status().isOk())
-                .andExpect(content().string("aLineDIAGONAL_RIGHT"));
+                .andExpect(content().json(prepareResponse("aLineDIAGONAL_RIGHT")));
     }
 
     private PasswordDTO setupPassword(PasswordElementDTO...elements) {
@@ -108,6 +109,4 @@ public class AksesiContextApplicationTests {
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         return ow.writeValueAsString(value);
     }
-
-
 }
