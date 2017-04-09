@@ -8,6 +8,9 @@ var CHARACTER_AREA_NAME = "aksesi-character-area";
 var CHARACTER_AREA_NAME_DOT = ".aksesi-character-area";
 var DEVELOPER_INFO_AREA_NAME = "#aksesi-developer-info-area";
 
+var CHARACTER_ELEMENT_NAME = "character";
+var GESTURE_ELEMENT_NAME = "gesture";
+
 var GESTURE_CHARACTER_REPRESENTATION = '~';
 
 var GESTURE_AREA_CODE = "<div id=\"aksesi-gesture-area\" class=\"entypo-pencil\"></div>";
@@ -35,11 +38,21 @@ function AksesiConfiguration() {
 
             $actionUrl = $form.attr("action");
             $actionMethod = $form.attr("method");
+            $actionData = JSON.stringify(passwordElementsHandler.getPassword());
 
-            //TODO mbrycki prepare password
-            //TODO mbrycki send asynchronous request and handle response
-
-            console.log($actionUrl + " " + $actionMethod);
+            $.ajax({
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                type: $actionMethod,
+                url: $actionUrl,
+                data: $actionData,
+                success: function (callback) {
+                   console.log(callback.message);
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                }
+            });
         });
     }
 
@@ -84,7 +97,8 @@ function AksesiConfiguration() {
 
         $(CHARACTER_AREA_NAME_DOT).keypress(function (e) {
 
-            var key = new Key(e.which);
+            var character = String.fromCharCode(e.which);
+            var key = new Character(character);
             passwordElementsHandler.addElement(key);
 
         });
@@ -123,8 +137,6 @@ function AksesiConfiguration() {
             $(document.body).append(DEVELOPER_AREA_CODE);
         }
     };
-
-
 }
 
 

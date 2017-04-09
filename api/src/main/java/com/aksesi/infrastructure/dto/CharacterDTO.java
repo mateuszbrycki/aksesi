@@ -9,17 +9,19 @@ import java.io.Serializable;
  * Created by Mateusz Brycki on 14/03/2017.
  */
 @Representation(element = Character.class)
-public class CharacterDTO implements PasswordElementDTO, Serializable {
+public class CharacterDTO extends PasswordElementDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String type = "character";
-
     private java.lang.Character character;
 
-    public CharacterDTO() {}
+    private static final String ELEMENT_TYPE = "character";
 
+    public CharacterDTO() {
+        super(ELEMENT_TYPE);
+    }
     public CharacterDTO(java.lang.Character character) {
+        super(ELEMENT_TYPE);
         this.character = character;
     }
 
@@ -31,13 +33,6 @@ public class CharacterDTO implements PasswordElementDTO, Serializable {
         this.character = character;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 
     @Override
     public String toString() {

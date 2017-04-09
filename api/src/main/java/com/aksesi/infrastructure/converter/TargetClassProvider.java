@@ -15,6 +15,8 @@ import java.util.HashMap;
 @Component
 public class TargetClassProvider {
 
+    //TODO mbrycki tests!
+
     private HashMap<Class<?>, Class<? extends PasswordElement>> classesMap = new HashMap<>();
 
     public Class<? extends PasswordElement> getTargetType(Class<?> clazz) {

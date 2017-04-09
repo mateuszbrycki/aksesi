@@ -26,9 +26,12 @@ public class TargetClassProviderPostProcessor implements BeanPostProcessor {
         if(bean instanceof TargetClassProvider) {
             TargetClassProvider targetClassProvider = (TargetClassProvider) bean;
 
+            //get all of classes annotated with @Representation
             Set<Class<?>> typesAnnotatedWith = new Reflections(APPLICATION_INFRASTRUCTURE_PACKAGE).getTypesAnnotatedWith(annotationClass);
 
             Consumer<Class<?>> register = new ClassRegistrationLogic(targetClassProvider);
+
+            //register each of classes
             typesAnnotatedWith.forEach(register::accept);
         }
 

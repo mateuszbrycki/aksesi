@@ -1,0 +1,12 @@
+language: java
+jdk:
+  - oraclejdk8
+install:
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -f api/pom.xml
+script:
+  - mvn test -f api/pom.xml
+branches:
+  only:
+  - master
+notifications:
+  email: true

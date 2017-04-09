@@ -25,6 +25,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import static com.aksesi.utils.ResponseUtils.prepareResponse;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -86,7 +87,7 @@ public class AksesiContextApplicationTestParametrized {
                 .content(requestJson)
         )
                 .andExpect(status().isOk())
-                .andExpect(content().string(expected));
+                .andExpect(content().json(prepareResponse(expected)));
     }
 
     private PasswordDTO setupPassword(List<PasswordElementDTO> elements) {
