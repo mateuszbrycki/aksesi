@@ -4,7 +4,7 @@ jdk:
 install:
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -f api/pom.xml
 script:
-  - mvn test
+  - mvn test -f api/pom.xml
 branches:
   only:
   - master
