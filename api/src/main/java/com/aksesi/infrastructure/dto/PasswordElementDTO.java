@@ -11,5 +11,20 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(value = CharacterDTO.class, name = "character"),
         @JsonSubTypes.Type(value = GestureDTO.class, name = "gesture")
 })
-public interface PasswordElementDTO {
+public abstract class PasswordElementDTO {
+
+    protected String type;
+
+    protected PasswordElementDTO(String type) {
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
 }

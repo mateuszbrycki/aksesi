@@ -32,7 +32,7 @@ public class PasswordEncrypter {
     public Collection<AbstractConverter> converters() {
 
         List<AbstractConverter> result = converterMap.entrySet().stream()
-                .map(x -> x.getValue())
+                .map(Map.Entry::getValue)
                 .collect(Collectors.toList());
 
         return result;

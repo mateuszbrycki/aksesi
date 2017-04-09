@@ -8,7 +8,8 @@ var pointsArrayNumber = 0;
 var passwordElementsHandler = new PasswordElementsHandler();
 
 function processGestureStoring() {
-    passwordElementsHandler.addElement(pointsArray);
+    var element = new Gesture(pointsArray);
+    passwordElementsHandler.addElement(element);
     resetPointArray();
 }
 

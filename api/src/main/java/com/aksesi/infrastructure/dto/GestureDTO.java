@@ -10,15 +10,18 @@ import java.util.List;
  * Created by Mateusz Brycki on 14/03/2017.
  */
 @Representation(element = Gesture.class)
-public class GestureDTO implements PasswordElementDTO, Serializable {
+public class GestureDTO extends PasswordElementDTO implements Serializable {
 
     private List<PointDTO> points;
 
-    private String type = "gesture";
+    private static final String ELEMENT_TYPE = "character";
 
-    public GestureDTO() {}
+    public GestureDTO() {
+        super(ELEMENT_TYPE);
+    }
 
     public GestureDTO(List<PointDTO> points) {
+        super(ELEMENT_TYPE);
         this.points = points;
     }
 
@@ -28,13 +31,5 @@ public class GestureDTO implements PasswordElementDTO, Serializable {
 
     public List<PointDTO> getPoints() {
         return points;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 }
