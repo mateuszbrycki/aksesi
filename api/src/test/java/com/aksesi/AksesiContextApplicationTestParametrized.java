@@ -38,6 +38,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebAppConfiguration
 public class AksesiContextApplicationTestParametrized {
 
+    private final static String TEST_LOGIN = "TEST";
+
     @ClassRule
     public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
 
@@ -63,7 +65,7 @@ public class AksesiContextApplicationTestParametrized {
                 .build();
     }
 
-    @Parameters
+    @Parameters(name = "Expected {1}")
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
                 {Arrays.asList(new CharacterDTO('a')), "a"},
@@ -78,9 +80,9 @@ public class AksesiContextApplicationTestParametrized {
 
     @Test
     public void test() throws Exception {
-        PasswordDTO password = setupPassword(elements);
+        AuthenticationRequestDTO request = setupPassword(elements);
 
-        String requestJson = convertToJSON(password);
+        String requestJson = convertToJSON(request);
 
         mockMvc.perform(post("/password")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -90,10 +92,13 @@ public class AksesiContextApplicationTestParametrized {
                 .andExpect(content().json(prepareResponse(expected)));
     }
 
-    private PasswordDTO setupPassword(List<PasswordElementDTO> elements) {
+    private AuthenticationRequestDTO setupPassword(List<PasswordElementDTO> elements) {
 
         PasswordDTO password = new PasswordDTO(elements);
-        return password;
+        ConfigurationDTO configuration = new ConfigurationDTO();
+        AuthenticationRequestDTO request = new AuthenticationRequestDTO(TEST_LOGIN, password, configuration);
+
+        return request;
     }
 
     private String convertToJSON(Object value) throws Exception {

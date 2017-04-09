@@ -48,3 +48,15 @@ function Point(x, y) {
 
     this.getPointInfo = function() {return "x: " + this.x + ", y:" + this.y;}
 }
+
+function AuthenticationRequest(login, password, configuration) {
+    this.login = login;
+    this.password = password;
+    this.configuration = configuration;
+}
+
+function Configuration(url, method) {
+    this.url = url;
+    this.method = method;
+}
+

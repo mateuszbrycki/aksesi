@@ -13,10 +13,15 @@ var GESTURE_ELEMENT_NAME = "gesture";
 
 var GESTURE_CHARACTER_REPRESENTATION = '~';
 
+var AKSESI_PROXY_URL = "http://localhost:8081";
+var AKSESI_PROXY_METHOD = "POST";
+
 var GESTURE_AREA_CODE = "<div id=\"aksesi-gesture-area\" class=\"entypo-pencil\"></div>";
 var DEVELOPER_AREA_CODE = "<div id=\"aksesi-developer-info-area\"></div>";
 
 function AksesiConfiguration() {
+
+    this.passwordElement;
 
     this.enable = function (authenticationFormId, enableDeveloperLog) {
 
@@ -36,21 +41,24 @@ function AksesiConfiguration() {
            e.preventDefault();
             $form = $(this);
 
-            $actionUrl = $form.attr("action");
-            $actionMethod = $form.attr("method");
-            $actionData = JSON.stringify(passwordElementsHandler.getPassword());
+            var login = $form.find('input[type="text"]').val();
+
+            var configuration = new Configuration($form.attr("action"), $form.attr("method"));
+            var authenticationRequest = new AuthenticationRequest(login, passwordElementsHandler.getPassword(), configuration);
+
+            $actionData = JSON.stringify(authenticationRequest);
 
             $.ajax({
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                type: $actionMethod,
-                url: $actionUrl,
+                type: AKSESI_PROXY_METHOD,
+                url: AKSESI_PROXY_URL + "/password",
                 data: $actionData,
                 success: function (callback) {
                    console.log(callback.message);
                 },
                 error: function (xhr) {
-                    console.log(xhr);
+                    console.log(xhr.responseText);
                 }
             });
         });
@@ -62,7 +70,8 @@ function AksesiConfiguration() {
     };
     this._addAksesiPasswordArea = function (authenticationFormId) {
         //add gesture area
-        $(authenticationFormId + " input[type=password]").after(GESTURE_AREA_CODE);
+        this.passwordElement = $(authenticationFormId + " input[type=password]");
+        this.passwordElement.after(GESTURE_AREA_CODE);
     };
 
     this._setupAksesiEvents = function () {

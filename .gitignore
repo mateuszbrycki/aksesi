@@ -4,3 +4,4 @@
 
 #frontend dependencies
 front/node_modules/*
+*.log
