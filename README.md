@@ -1,6 +1,9 @@
 ## Aksesi
 ["Get Noticed 2017"](http://dajsiepoznac.pl) project.
 
+### Build
+[![Build Status](https://travis-ci.org/mateuszbrycki/aksesi.svg?branch=master)](https://travis-ci.org/mateuszbrycki/aksesi)
+
 ### Main idea
 Aksesi's main idea is to allow authenticate a user with password which consists of characters and gestures. 
 
