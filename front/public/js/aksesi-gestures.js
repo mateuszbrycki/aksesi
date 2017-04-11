@@ -69,12 +69,10 @@ function AksesiEventHandler() {
         $(DEVELOPER_INFO_AREA_NAME).append(message + ', number: ' + this.gestureNumber + '<br />');
     };
 
-
     this._appendGestureCharacterRepresentation = function() {
         var characterAreaInput = $(CHARACTER_AREA_NAME_DOT).val();
         $(CHARACTER_AREA_NAME_DOT).val(characterAreaInput + GESTURE_CHARACTER_REPRESENTATION);
     };
-
 
     this._processGestureStoring = function() {
         var element = new Gesture(this.pointsArray);

@@ -1,8 +1,6 @@
 /**
  * Created by mateusz-mac on 25/03/2017.
  */
-
-
 var GESTURE_AREA_NAME = "#aksesi-gesture-area";
 var CHARACTER_AREA_NAME = "aksesi-character-area";
 var CHARACTER_AREA_NAME_DOT = ".aksesi-character-area";
@@ -21,14 +19,20 @@ var GESTURE_AREA_CODE = "<div id=\"aksesi-gesture-area\" class=\"entypo-pencil\"
 var DEVELOPER_AREA_CODE = "<div id=\"aksesi-developer-info-area\"></div>";
 var RESULT_MESSAGE_AREA = "<div id=\"aksesi-message\" class=\"alert alert-info\" role=\"alert\"></div>";
 
+var AKSESI = new AksesiConfiguration();
+
 function AksesiConfiguration() {
 
     this.passwordElement;
     this.akesiEventHandler;
 
-    this.enable = function (authenticationFormId, enableDeveloperLog) {
+    this.init = function (configuration) {
+
+        var authenticationFormId = configuration['formName'];
+        var enableDeveloperLog = configuration['showDevConsole'];
+
         this.akesiEventHandler = new AksesiEventHandler();
-        // this._addRequiredFiles();
+
         this._addAksesiCharacterArea(authenticationFormId);
         this._addAksesiPasswordArea(authenticationFormId);
         this._addAksesiMessageArea(authenticationFormId);

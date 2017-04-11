@@ -14,14 +14,30 @@
     <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
     <script src="../node_modules/bootstrap/js/modal.js"></script>
 
-    <script src="js/aksesi-classes.js"></script>
-    <script src="js/aksesi-gestures.js"></script>
-    <script src="js/aksesi.js"></script>
-
     <script>
-        $(document).ready(function () {
-            (new AksesiConfiguration).enable("#authentication-form", false);
+
+        (function (d, s, ids) {
+            ids.forEach(function (id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {
+                    return;
+                }
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "js/" + id + ".js";
+                fjs.parentNode.insertBefore(js, fjs);
+            });
+
+        }(document, 'script', ['aksesi-classes', 'aksesi-gestures', 'aksesi']));
+
+
+        $(document).ready(function() {
+            AKSESI.init({
+                formName: "#authentication-form",
+                showDevConsole: false
+            });
         });
+
     </script>
 </head>
 
