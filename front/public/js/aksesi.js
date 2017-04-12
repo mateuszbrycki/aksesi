@@ -19,33 +19,16 @@ var GESTURE_AREA_CODE = "<div id=\"aksesi-gesture-area\" class=\"entypo-pencil\"
 var DEVELOPER_AREA_CODE = "<div id=\"aksesi-developer-info-area\"></div>";
 var RESULT_MESSAGE_AREA = "<div id=\"aksesi-message\" class=\"alert alert-info\" role=\"alert\"></div>";
 
-var AKSESI = new AksesiConfiguration();
+var AKSESI = (function () {
 
-function AksesiConfiguration() {
+    var passwordElement;
+    var akesiEventHandler;
 
-    this.passwordElement;
-    this.akesiEventHandler;
-
-    this.init = function (configuration) {
-
-        var authenticationFormId = configuration['formName'];
-        var enableDeveloperLog = configuration['showDevConsole'];
-
-        this.akesiEventHandler = new AksesiEventHandler();
-
-        this._addAksesiCharacterArea(authenticationFormId);
-        this._addAksesiPasswordArea(authenticationFormId);
-        this._addAksesiMessageArea(authenticationFormId);
-        this._setupAksesiEvents(this);
-        this._addAksesiDeveloperArea(enableDeveloperLog);
-        this._setupFormForwarding(this, authenticationFormId);
-    };
-
-    this._setupFormForwarding = function(parentElement, authenticationFormId) {
+    var _setupFormForwarding = function (parentElement, authenticationFormId) {
         var form = $(authenticationFormId);
 
-        form.submit(function(e) {
-           e.preventDefault();
+        form.submit(function (e) {
+            e.preventDefault();
             $form = $(this);
 
             var login = $form.find('input[type="text"]').val();
@@ -64,7 +47,7 @@ function AksesiConfiguration() {
                 data: $actionData,
                 success: function (callback) {
                     _handleResponse(form, callback.message);
-                   parentElement.resetModuleState($form);
+                    parentElement.resetModuleState($form);
                 },
                 error: function (xhr) {
                     _handleResponse(form, xhr.responseText);
@@ -73,50 +56,50 @@ function AksesiConfiguration() {
         });
     };
 
-    this.resetModuleState = function(form){
-        this.akesiEventHandler.resetModuleState(form);
+    var resetModuleState = function (form) {
+        akesiEventHandler.resetModuleState(form);
     };
 
-    function _handleResponse(form, message) {
+    var _handleResponse = function (form, message) {
         $(RESULT_MESSAGE_AREA_NAME).html(message);
         $(RESULT_MESSAGE_AREA_NAME).show();
     };
 
-    this._addAksesiCharacterArea = function (authenticationFormId) {
+    var _addAksesiCharacterArea = function (authenticationFormId) {
         //connect Aksesi mechanism
         $(authenticationFormId + " input[type=password]").addClass(CHARACTER_AREA_NAME);
     };
-    this._addAksesiPasswordArea = function (authenticationFormId) {
+    var _addAksesiPasswordArea = function (authenticationFormId) {
         //add gesture area
-        this.passwordElement = $(authenticationFormId + " input[type=password]");
-        this.passwordElement.after(GESTURE_AREA_CODE);
+        passwordElement = $(authenticationFormId + " input[type=password]");
+        passwordElement.after(GESTURE_AREA_CODE);
     };
 
-    this._addAksesiMessageArea = function(authenticationFormId){
+    var _addAksesiMessageArea = function (authenticationFormId) {
         $(authenticationFormId).after(RESULT_MESSAGE_AREA);
     };
 
-    this._setupAksesiEvents = function (parentObject) {
+    var _setupAksesiEvents = function (parentObject) {
         $(GESTURE_AREA_NAME).mousedown(function (e) {
-            parentObject.akesiEventHandler.mouseDownEvent(e);
+            akesiEventHandler.mouseDownEvent(e);
         });
 
         $(GESTURE_AREA_NAME).mouseup(function (e) {
-            parentObject.akesiEventHandler.mouseUpEvent(e);
+            akesiEventHandler.mouseUpEvent(e);
         });
 
         $(GESTURE_AREA_NAME).mousemove(function (e) {
 
-            parentObject.akesiEventHandler.mouseMoveEvent(e);
+            akesiEventHandler.mouseMoveEvent(e);
 
         });
 
         $(CHARACTER_AREA_NAME_DOT).keypress(function (e) {
-            parentObject.akesiEventHandler.keyPressEvent(e);
+            akesiEventHandler.keyPressEvent(e);
         });
 
         $(CHARACTER_AREA_NAME_DOT).keyup(function (e) {
-            parentObject.akesiEventHandler.keyUpEvent(e);
+            akesiEventHandler.keyUpEvent(e);
         });
 
         $(CHARACTER_AREA_NAME_DOT).focus(function (e) {
@@ -125,7 +108,7 @@ function AksesiConfiguration() {
         });
     };
 
-    this._addRequiredFiles = function () {
+    var _addRequiredFiles = function () {
         var files = [
             "js/aksesi-classes.js",
             "js/aksesi-gestures.js"
@@ -139,12 +122,29 @@ function AksesiConfiguration() {
         });
     };
 
-    this._addAksesiDeveloperArea = function (enableDeveloperLog) {
+    var _addAksesiDeveloperArea = function (enableDeveloperLog) {
         if (enableDeveloperLog) {
             $(document.body).append(DEVELOPER_AREA_CODE);
         }
     };
-}
+
+    return {
+        init: function (configuration) {
+            var authenticationFormId = configuration['formName'];
+            var enableDeveloperLog = configuration['showDevConsole'];
+
+            akesiEventHandler = new AksesiEventHandler();
+
+            _addAksesiCharacterArea(authenticationFormId);
+            _addAksesiPasswordArea(authenticationFormId);
+            _addAksesiMessageArea(authenticationFormId);
+            _setupAksesiEvents(this);
+            _addAksesiDeveloperArea(enableDeveloperLog);
+            _setupFormForwarding(this, authenticationFormId);
+        }
+    }
+
+}());
 
 
 

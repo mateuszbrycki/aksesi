@@ -14,6 +14,10 @@
     <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
     <script src="../node_modules/bootstrap/js/modal.js"></script>
 
+    <script src="js/aksesi-classes.js"></script>
+    <script src="js/aksesi-gestures.js"></script>
+    <script src="js/aksesi.js"></script>
+
     <script>
 
         (function (d, s, ids) {
@@ -24,18 +28,18 @@
                 }
                 js = d.createElement(s);
                 js.id = id;
+                js.type = "text/javascript";
                 js.src = "js/" + id + ".js";
-                fjs.parentNode.insertBefore(js, fjs);
+//                fjs.parentNode.insertBefore(js, fjs);
             });
 
-        }(document, 'script', ['aksesi-classes', 'aksesi-gestures', 'aksesi']));
-
+        }(document, 'script', ['aksesi', 'aksesi-gestures', 'aksesi-classes']));
 
         $(document).ready(function() {
-            AKSESI.init({
-                formName: "#authentication-form",
-                showDevConsole: false
-            });
+        AKSESI.init({
+            formName: "#authentication-form",
+            showDevConsole: false
+        });
         });
 
     </script>
