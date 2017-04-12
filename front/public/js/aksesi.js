@@ -135,12 +135,14 @@ var AKSESI = (function () {
 
             akesiEventHandler = new AksesiEventHandler();
 
-            _addAksesiCharacterArea(authenticationFormId);
-            _addAksesiPasswordArea(authenticationFormId);
-            _addAksesiMessageArea(authenticationFormId);
-            _setupAksesiEvents(this);
-            _addAksesiDeveloperArea(enableDeveloperLog);
-            _setupFormForwarding(this, authenticationFormId);
+            $(document).ready(function() {
+                _addAksesiCharacterArea(authenticationFormId);
+                _addAksesiPasswordArea(authenticationFormId);
+                _addAksesiMessageArea(authenticationFormId);
+                _setupAksesiEvents(this);
+                _addAksesiDeveloperArea(enableDeveloperLog);
+                _setupFormForwarding(this, authenticationFormId);
+            });
         }
     }
 
