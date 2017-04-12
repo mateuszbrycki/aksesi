@@ -19,9 +19,27 @@
     <script src="js/aksesi.js"></script>
 
     <script>
-        $(document).ready(function () {
-            (new AksesiConfiguration).enable("#authentication-form", false);
+
+        (function (d, s, ids) {
+            ids.forEach(function (id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {
+                    return;
+                }
+                js = d.createElement(s);
+                js.id = id;
+                js.type = "text/javascript";
+                js.src = "js/" + id + ".js";
+//                fjs.parentNode.insertBefore(js, fjs);
+            });
+
+        }(document, 'script', ['aksesi', 'aksesi-gestures', 'aksesi-classes']));
+
+        AKSESI.init({
+            formName: "#authentication-form",
+            showDevConsole: false
         });
+
     </script>
 </head>
 
