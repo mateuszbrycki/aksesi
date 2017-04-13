@@ -32,7 +32,7 @@ var AKSESI = (function () {
             $form = $(this);
 
             var login = $form.find('input[type="text"]').val();
-            var password = parentElement.akesiEventHandler.getPassword();
+            var password = akesiEventHandler.getPassword();
 
             var configuration = new Configuration($form.attr("action"), $form.attr("method"));
             var authenticationRequest = new AuthenticationRequest(login, password, configuration);
