@@ -1,0 +1,1 @@
+minify aksesi.js aksesi-classes.js aksesi-gestures.js > akesi.min.js
