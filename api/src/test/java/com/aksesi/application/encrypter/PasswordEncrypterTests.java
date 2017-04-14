@@ -90,6 +90,10 @@ public class PasswordEncrypterTests {
 
         setupPasswordElements(gestureElement1, character, gestureElement2);
 
+        when(abstractConverter.convert(character)).thenReturn("");
+        when(abstractConverter1.convert(gestureElement1)).thenReturn("");
+        when(abstractConverter1.convert(gestureElement2)).thenReturn("");
+
         conversionService.encrypt(password);
 
         //verify that converters were called
