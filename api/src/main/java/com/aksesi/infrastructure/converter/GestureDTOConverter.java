@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Mateusz Brycki on 29/03/2017.
@@ -29,10 +30,9 @@ public class GestureDTOConverter implements Converter<GestureDTO, Gesture> {
     }
 
     private List<Gesture.Point> convertPoints(List<PointDTO> points) {
-        List<Gesture.Point> result = new ArrayList<>();
 
-        points.forEach(e -> result.add(pointConverter.convert(e)));
-
-        return result;
+        return points.stream()
+                .map(pointConverter::convert)
+                .collect(Collectors.toList());
     }
 }
