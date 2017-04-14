@@ -55,16 +55,10 @@ public class PasswordEncrypter {
     };
 
     public String encrypt(final Password password) {
-        Collection<PasswordElement> passwordElements = password.getElements();
-
-        final StringBuilder resultBuilder = new StringBuilder();
-
-        passwordElements.stream()
+        return password.getElements().stream()
                 .filter((e) -> converterMap.get(e.getClass()) != null )
                 .map(conversionFunction)
-                .forEach(resultBuilder::append);
-
-        return resultBuilder.toString();
+                .collect(Collectors.joining());
     }
 
 }
