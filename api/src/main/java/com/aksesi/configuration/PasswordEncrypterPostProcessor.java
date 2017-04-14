@@ -35,7 +35,7 @@ public class PasswordEncrypterPostProcessor implements BeanPostProcessor, Applic
 
             //cast bean
             PasswordEncrypter conversionFactoryBean = (PasswordEncrypter) bean;
-            converters.forEach((c) -> conversionFactoryBean.registerConverter(c));
+            converters.forEach(conversionFactoryBean::registerConverter);
         }
 
         return bean;
