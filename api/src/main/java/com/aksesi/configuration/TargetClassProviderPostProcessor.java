@@ -32,7 +32,7 @@ public class TargetClassProviderPostProcessor implements BeanPostProcessor {
             Consumer<Class<?>> register = new ClassRegistrationLogic(targetClassProvider);
 
             //register each of classes
-            typesAnnotatedWith.forEach(register::accept);
+            typesAnnotatedWith.forEach(register);
         }
 
         return bean;
@@ -46,12 +46,14 @@ public class TargetClassProviderPostProcessor implements BeanPostProcessor {
 
     private class ClassRegistrationLogic implements Consumer<Class<?>> {
 
-        TargetClassProvider provider;
+        private final TargetClassProvider provider;
+
         public ClassRegistrationLogic(TargetClassProvider provider) {
             this.provider = provider;
         }
 
-        @Override public void accept(Class<?> aClass)
+        @Override
+        public void accept(Class<?> aClass)
         {
             Class clazz;
             try {

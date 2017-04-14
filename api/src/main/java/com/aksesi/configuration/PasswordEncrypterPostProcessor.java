@@ -35,9 +35,7 @@ public class PasswordEncrypterPostProcessor implements BeanPostProcessor, Applic
 
             //cast bean
             PasswordEncrypter conversionFactoryBean = (PasswordEncrypter) bean;
-            Consumer<AbstractConverter> converterRegistrationLogic = new ConverterRegistrationLogic(conversionFactoryBean);
-
-            converters.forEach(converterRegistrationLogic::accept);
+            converters.forEach((c) -> conversionFactoryBean.registerConverter(c));
         }
 
         return bean;
@@ -51,18 +49,5 @@ public class PasswordEncrypterPostProcessor implements BeanPostProcessor, Applic
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
-    }
-
-    private class ConverterRegistrationLogic implements Consumer<AbstractConverter>
-    {
-        private PasswordEncrypter conversionFactoryBean;
-
-        public ConverterRegistrationLogic(PasswordEncrypter conversionFactoryBean) {
-            this.conversionFactoryBean = conversionFactoryBean;
-        }
-
-        @Override public void accept(AbstractConverter converter) {
-            conversionFactoryBean.registerConverter(converter);
-        }
     }
 }
