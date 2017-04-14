@@ -44,20 +44,20 @@ public class PasswordEncrypter {
         System.gc();
     }
 
+    private final Function<PasswordElement, String> conversionFunction = (PasswordElement element) -> {
+        AbstractConverter converter = converterMap.get(element.getClass());
+
+        try {
+            return converter.convert(element);
+        } catch (ConversionException e) {
+            return null;
+        }
+    };
+
     public String encrypt(final Password password) {
         Collection<PasswordElement> passwordElements = password.getElements();
 
         final StringBuilder resultBuilder = new StringBuilder();
-
-        final Function<PasswordElement, String> conversionFunction = (PasswordElement element) -> {
-            AbstractConverter converter = converterMap.get(element.getClass());
-
-            try {
-                return converter.convert(element);
-            } catch (ConversionException e) {
-                return null;
-            }
-        };
 
         passwordElements.stream()
                 .filter((e) -> converterMap.get(e.getClass()) != null )
