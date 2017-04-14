@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -43,25 +44,28 @@ public class PasswordEncrypter {
         System.gc();
     }
 
-    public String encrypt(Password password) {
+    public String encrypt(final Password password) {
         Collection<PasswordElement> passwordElements = password.getElements();
 
-        StringBuilder resultBuilder = new StringBuilder();
+        final StringBuilder resultBuilder = new StringBuilder();
 
-        passwordElements.forEach(e -> {
-
-            AbstractConverter converter = converterMap.get(e.getClass());
-            if(converter == null) { //if there is no converter registered then skip current element
-                return;
-            }
+        final Function<PasswordElement, String> conversionFunction = (PasswordElement element) -> {
+            AbstractConverter converter = converterMap.get(element.getClass());
 
             try {
-                resultBuilder.append(converter.convert(e));
-            } catch(ConversionException exception) {
-                exception.printStackTrace();
+                return converter.convert(element);
+            } catch (ConversionException e) {
+                return null;
             }
-        });
+        };
+
+        passwordElements.stream()
+                .filter((e) -> converterMap.get(e.getClass()) != null )
+                .map(conversionFunction)
+                .forEach(resultBuilder::append);
 
         return resultBuilder.toString();
     }
+
 }
+
