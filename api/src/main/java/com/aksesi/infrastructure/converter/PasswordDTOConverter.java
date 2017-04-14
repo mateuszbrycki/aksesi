@@ -17,6 +17,8 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * Created by Mateusz Brycki on 29/03/2017.
@@ -41,15 +43,15 @@ public class PasswordDTOConverter implements Converter<PasswordDTO, Password> {
     }
 
     private List<PasswordElement> convertElements(Collection<PasswordElementDTO> elements) {
-        List<PasswordElement> result = new ArrayList<>();
 
-        elements.forEach(e -> {
-            Class<? extends PasswordElement> targetType = targetClassProvider.getTargetType(e.getClass());
-            Object element = conversionService.convert(e, targetType);
-                result.add((PasswordElement)element);
+        final Function<PasswordElementDTO, PasswordElement> conversionFunction = (element) -> {
+            Class<? extends PasswordElement> targetType = targetClassProvider.getTargetType(element.getClass());
+            return (PasswordElement) conversionService.convert(element, targetType);
+        };
 
-        });
+        return elements.stream()
+                .map(conversionFunction)
+                .collect(Collectors.toList());
 
-        return result;
     }
 }
