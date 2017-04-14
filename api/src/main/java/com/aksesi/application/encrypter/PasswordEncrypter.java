@@ -6,10 +6,7 @@ import com.aksesi.application.element.PasswordElement;
 import com.aksesi.application.element.Password;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -44,13 +41,14 @@ public class PasswordEncrypter {
         System.gc();
     }
 
-    private final Function<PasswordElement, String> conversionFunction = (PasswordElement element) -> {
+    private final Function<PasswordElement, Optional<String>> conversionFunction = (PasswordElement element) -> {
         AbstractConverter converter = converterMap.get(element.getClass());
 
         try {
-            return converter.convert(element);
+            String convert = converter.convert(element);
+            return Optional.of(convert);
         } catch (ConversionException e) {
-            return null;
+            return Optional.empty();
         }
     };
 
@@ -58,6 +56,8 @@ public class PasswordEncrypter {
         return password.getElements().stream()
                 .filter((e) -> converterMap.get(e.getClass()) != null )
                 .map(conversionFunction)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
                 .collect(Collectors.joining());
     }
 
