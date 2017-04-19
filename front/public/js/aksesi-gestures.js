@@ -1,88 +1,99 @@
 function AksesiEventHandler() {
-    this.isMouseButtonPressed = false;
-    this.gestureNumber = 0;
+    isMouseButtonPressed = false;
+    gestureNumber = 0;
 
-    this.pointsArray = new Array();
-    this.pointsArrayNumber = 0;
+    pointsArray = new Array();
+    pointsArrayNumber = 0;
 
-    this.passwordElementsHandler = new PasswordElementsHandler();
+    passwordElementsHandler = new PasswordElementsHandler();
 
-    this.resetModuleState= function(form) {
-        this.isMouseButtonPressed = false;
-        this.gestureNumber = 0;
+    var resetModuleState= function(form) {
+        isMouseButtonPressed = false;
+        gestureNumber = 0;
 
-        this.pointsArray = [];
-        this.pointsArrayNumber = 0;
+        pointsArray = [];
+        pointsArrayNumber = 0;
 
-        this.passwordElementsHandler = new PasswordElementsHandler();
+        passwordElementsHandler = new PasswordElementsHandler();
 
         if (form !== null && form.length > 0) {
             form[0].reset();
         }
     };
 
-    this.mouseDownEvent = function(e) {
-        this.isMouseButtonPressed = true;
-        this.gestureNumber++;
+    var mouseDownEvent = function(e) {
+        isMouseButtonPressed = true;
+        gestureNumber++;
 
-        this._logDeveloperInfo('Mouse down event');
+        _logDeveloperInfo('Mouse down event');
     };
 
-    this.mouseMoveEvent = function(e) {
-        if (this.isMouseButtonPressed) {
-            this.pointsArray[this.pointsArrayNumber] = new Point(e.pageX, e.pageY);
-            this.pointsArrayNumber++;
+    var mouseMoveEvent = function(e) {
+        if (isMouseButtonPressed) {
+            pointsArray[pointsArrayNumber] = new Point(e.pageX, e.pageY);
+            pointsArrayNumber++;
 
-            this._logDeveloperInfo('Mouse move event: (' + e.pageX + ', ' + e.pageY + ')');
+            _logDeveloperInfo('Mouse move event: (' + e.pageX + ', ' + e.pageY + ')');
         }
     };
 
-    this.mouseUpEvent = function(e) {
-        this.isMouseButtonPressed = false;
-        this._processGestureStoring();
+    var mouseUpEvent = function(e) {
+        isMouseButtonPressed = false;
+        _processGestureStoring();
 
         //change focus to the character input
         $(CHARACTER_AREA_NAME_DOT).focus();
-        this._appendGestureCharacterRepresentation();
+        _appendGestureCharacterRepresentation();
 
-        this._logDeveloperInfo('Mouse up event');
+        _logDeveloperInfo('Mouse up event');
     };
 
-    this.keyPressEvent = function(e) {
+    var keyPressEvent = function(e) {
         var character = String.fromCharCode(e.which);
         var key = new Character(character);
-        this.passwordElementsHandler.addElement(key);
+        passwordElementsHandler.addElement(key);
     };
 
-    this.keyUpEvent = function(e) {
+    var keyUpEvent = function(e) {
         //handling backspace
         if (e.which == 8) {
-            this.passwordElementsHandler.removeLastPressedKey();
+            passwordElementsHandler.removeLastPressedKey();
         }
     };
 
-    this.getPassword = function() {
-        return this.passwordElementsHandler.getPassword();
+    var getPassword = function() {
+        return passwordElementsHandler.getPassword();
     };
 
-    this._logDeveloperInfo = function(message) {
-        $(DEVELOPER_INFO_AREA_NAME).append(message + ', number: ' + this.gestureNumber + '<br />');
+    var _logDeveloperInfo = function(message) {
+        $(DEVELOPER_INFO_AREA_NAME).append(message + ', number: ' + gestureNumber + '<br />');
     };
 
-    this._appendGestureCharacterRepresentation = function() {
+    var _appendGestureCharacterRepresentation = function() {
         var characterAreaInput = $(CHARACTER_AREA_NAME_DOT).val();
         $(CHARACTER_AREA_NAME_DOT).val(characterAreaInput + GESTURE_CHARACTER_REPRESENTATION);
     };
 
-    this._processGestureStoring = function() {
-        var element = new Gesture(this.pointsArray);
-        this.passwordElementsHandler.addElement(element);
-        this._resetPointArray();
+    var _processGestureStoring = function() {
+        var element = new Gesture(pointsArray);
+        passwordElementsHandler.addElement(element);
+        _resetPointArray();
     };
 
-    this._resetPointArray = function() {
-        this.pointsArray = [];
-        this.pointsArrayNumber = 0;
+    var _resetPointArray = function() {
+        pointsArray = [];
+        pointsArrayNumber = 0;
     };
+
+
+    return ({
+        resetModuleState : resetModuleState,
+        mouseDownEvent : mouseDownEvent,
+        mouseMoveEvent : mouseMoveEvent,
+        mouseUpEvent : mouseUpEvent,
+        keyPressEvent : keyPressEvent,
+        keyUpEvent : keyUpEvent,
+        getPassword : getPassword
+    });
 
 }

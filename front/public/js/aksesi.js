@@ -47,7 +47,7 @@ var AKSESI = (function () {
                 data: $actionData,
                 success: function (callback) {
                     _handleResponse(form, callback.message);
-                    parentElement.resetModuleState($form);
+                    akesiEventHandler.resetModuleState($form);
                 },
                 error: function (xhr) {
                     _handleResponse(form, xhr.responseText);
