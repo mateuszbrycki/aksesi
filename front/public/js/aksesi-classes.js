@@ -8,17 +8,17 @@ function PasswordElementsHandler() {
 
         this.elementsArraySize++;
         this.printElements();
-    }
+    };
 
     this.printElements = function() {
         console.log(this.elementsArray);
-    }
+    };
 
     this.removeLastPressedKey = function() {
         this.elementsArray.splice(--this.elementsArraySize, 1);
 
         this.printElements();
-    }
+    };
 
     this.getPassword = function() {
         return new Password(this.elementsArray);
@@ -55,8 +55,14 @@ function AuthenticationRequest(login, password, configuration) {
     this.configuration = configuration;
 }
 
-function Configuration(url, method) {
+function InputConfiguration(login, password) {
+    this.loginName = login;
+    this.passwordName = password;
+}
+
+function Configuration(inputConfiguration, url, method) {
     this.url = url;
     this.method = method;
+    this.inputConfiguration = inputConfiguration;
 }
 

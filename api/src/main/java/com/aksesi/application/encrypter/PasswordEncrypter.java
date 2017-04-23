@@ -56,8 +56,7 @@ public class PasswordEncrypter {
         return password.getElements().stream()
                 .filter((e) -> converterMap.get(e.getClass()) != null )
                 .map(conversionFunction)
-                .filter(Optional::isPresent)
-                .map(Optional::get)
+                .map(e -> e.orElse(""))
                 .collect(Collectors.joining());
     }
 
