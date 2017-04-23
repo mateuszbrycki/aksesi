@@ -95,7 +95,7 @@ public class AksesiContextApplicationTestParametrized {
     private AuthenticationRequestDTO setupPassword(List<PasswordElementDTO> elements) {
 
         PasswordDTO password = new PasswordDTO(elements);
-        ConfigurationDTO configuration = new ConfigurationDTO();
+        ConfigurationDTO configuration = new ConfigurationDTO(new InputConfiguration(), "URL", "METHOD");
         AuthenticationRequestDTO request = new AuthenticationRequestDTO(TEST_LOGIN, password, configuration);
 
         return request;

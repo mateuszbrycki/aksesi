@@ -31,20 +31,22 @@ var AKSESI = (function () {
             e.preventDefault();
             $form = $(this);
 
-            var login = $form.find('input[type="text"]').val();
+            var loginInput = getLoginInput($form);
+
+            var inputConfiguration = createInputConfiguration($form);
+            var configuration = new Configuration(inputConfiguration, $form.attr("action"), $form.attr("method"));
+
             var password = akesiEventHandler.getPassword();
+            var authenticationRequest = new AuthenticationRequest(loginInput.val(), password, configuration);
 
-            var configuration = new Configuration($form.attr("action"), $form.attr("method"));
-            var authenticationRequest = new AuthenticationRequest(login, password, configuration);
-
-            $actionData = JSON.stringify(authenticationRequest);
+            var actionData = JSON.stringify(authenticationRequest);
 
             $.ajax({
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 type: AKSESI_PROXY_METHOD,
                 url: AKSESI_PROXY_URL + "/password",
-                data: $actionData,
+                data: actionData,
                 success: function (callback) {
                     _handleResponse(form, callback.message);
                     akesiEventHandler.resetModuleState($form);
@@ -54,6 +56,21 @@ var AKSESI = (function () {
                 }
             });
         });
+    };
+
+    var createInputConfiguration = function(form) {
+        var loginInput = getLoginInput(form);
+        var passwordInput = getPasswordInput(form);
+
+        return new InputConfiguration(loginInput.attr("name"), passwordInput.attr("name"));
+    };
+
+    var getLoginInput = function(form) {
+        return form.find('input[type="text"]');
+    };
+
+    var getPasswordInput = function(form) {
+        return form.find('input[type="password"]');
     };
 
     var resetModuleState = function (form) {
@@ -67,11 +84,12 @@ var AKSESI = (function () {
 
     var _addAksesiCharacterArea = function (authenticationFormId) {
         //connect Aksesi mechanism
-        $(authenticationFormId + " input[type=password]").addClass(CHARACTER_AREA_NAME);
+        var form = $(authenticationFormId);
+        getPasswordInput(form).addClass(CHARACTER_AREA_NAME);
     };
     var _addAksesiPasswordArea = function (authenticationFormId) {
         //add gesture area
-        passwordElement = $(authenticationFormId + " input[type=password]");
+        passwordElement = getPasswordInput($(authenticationFormId));
         passwordElement.after(GESTURE_AREA_CODE);
     };
 
