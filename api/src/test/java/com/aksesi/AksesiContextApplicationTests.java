@@ -1,6 +1,7 @@
 package com.aksesi;
 
 import com.aksesi.infrastructure.dto.*;
+import com.aksesi.infrastructure.template.AksesiRestTemplateProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -9,8 +10,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -18,6 +21,9 @@ import org.springframework.web.context.WebApplicationContext;
 import java.util.Arrays;
 
 import static com.aksesi.utils.ResponseUtils.prepareResponse;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -30,16 +36,25 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class AksesiContextApplicationTests {
 
     private final static String TEST_LOGIN = "TEST";
+    private final static String URL = "http://test.url";
+    private final static HttpMethod METHOD = HttpMethod.POST;
 
     @Autowired
     private WebApplicationContext webApplicationContext;
 
     private MockMvc mockMvc;
 
+    private MockRestServiceServer mockRestServiceServer;
+
+    @Autowired
+    private AksesiRestTemplateProvider provider;
+
     @Before
     public void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
                 .build();
+
+        mockRestServiceServer = MockRestServiceServer.createServer(provider.getTemplate());
     }
 
     @Test
@@ -47,6 +62,11 @@ public class AksesiContextApplicationTests {
         AuthenticationRequestDTO request = setupPassword(
                 new CharacterDTO('a')
         );
+
+        mockRestServiceServer.expect(
+                requestTo(URL))
+                .andExpect(method(METHOD))
+                .andRespond(withSuccess("a", MediaType.APPLICATION_JSON));
 
         String requestJson = convertToJSON(request);
 
@@ -65,6 +85,12 @@ public class AksesiContextApplicationTests {
                         new PointDTO(1L,1L),new PointDTO(2L,2L)
                 ))
         );
+
+
+        mockRestServiceServer.expect(
+                requestTo(URL))
+                .andExpect(method(METHOD))
+                .andRespond(withSuccess("LineDIAGONAL_RIGHT", MediaType.APPLICATION_JSON));
 
         String requestJson = convertToJSON(request);
 
@@ -85,6 +111,12 @@ public class AksesiContextApplicationTests {
                 ))
         );
 
+
+        mockRestServiceServer.expect(
+                requestTo(URL))
+                .andExpect(method(METHOD))
+                .andRespond(withSuccess("aLineDIAGONAL_RIGHT", MediaType.APPLICATION_JSON));
+
         String requestJson = convertToJSON(request);
 
         mockMvc.perform(post("/password")
@@ -95,10 +127,61 @@ public class AksesiContextApplicationTests {
                 .andExpect(content().json(prepareResponse("aLineDIAGONAL_RIGHT")));
     }
 
+    @Test
+    public void testUnauthorizedResponseFromEndpoint() throws Exception {
+        AuthenticationRequestDTO request = setupPassword(
+                new CharacterDTO('a'),
+                new GestureDTO(Arrays.asList(
+                    new PointDTO(1L,1L),new PointDTO(2L,2L)
+                ))
+        );
+
+
+        mockRestServiceServer.expect(
+                requestTo(URL))
+                .andExpect(method(METHOD))
+                .andRespond(withUnauthorizedRequest());
+
+        String requestJson = convertToJSON(request);
+
+        mockMvc.perform(post("/password")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson)
+        )
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    public void testBadRequestResponseFromEndpoint() throws Exception {
+        AuthenticationRequestDTO request = setupPassword(
+                new CharacterDTO('a'),
+                new GestureDTO(Arrays.asList(
+                    new PointDTO(1L,1L),new PointDTO(2L,2L)
+                ))
+        );
+
+
+        mockRestServiceServer.expect(
+                requestTo(URL))
+                .andExpect(method(METHOD))
+                .andRespond(withBadRequest());
+
+        String requestJson = convertToJSON(request);
+
+        mockMvc.perform(post("/password")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson)
+        )
+                .andExpect(status().isBadRequest());
+    }
+
+
+
     private AuthenticationRequestDTO setupPassword(PasswordElementDTO...elements) {
 
         PasswordDTO password = new PasswordDTO(Arrays.asList(elements));
-        ConfigurationDTO configuration = new ConfigurationDTO(new InputConfiguration(), "URL", "METHOD");
+        InputConfiguration inputConfiguration = new InputConfiguration("login", "password");
+        ConfigurationDTO configuration = new ConfigurationDTO(inputConfiguration, URL, METHOD.name());
         AuthenticationRequestDTO request = new AuthenticationRequestDTO(TEST_LOGIN, password, configuration);
 
         return request;

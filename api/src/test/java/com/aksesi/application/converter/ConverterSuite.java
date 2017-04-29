@@ -1,7 +1,7 @@
 package com.aksesi.application.converter;
 
-import com.aksesi.application.shape.direction.LineDirectionResolverTests;
 import com.aksesi.application.converter.strategy.LinearConversionStrategyTests;
+import com.aksesi.application.shape.direction.LineDirectionResolverTests;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 

@@ -1,7 +1,7 @@
 package com.aksesi.infrastructure;
 
+import com.aksesi.infrastructure.builder.AuthenticationRequestBuilderTests;
 import com.aksesi.infrastructure.converter.TargetClassProviderTests;
-import com.aksesi.infrastructure.provider.AuthenticationRequestProviderTests;
 import com.aksesi.infrastructure.response.MessageResponseTests;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -13,7 +13,7 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
     TargetClassProviderTests.class,
     MessageResponseTests.class,
-    AuthenticationRequestProviderTests.class
+    AuthenticationRequestBuilderTests.class
 })
 public class InfrastructureSuite {
 }

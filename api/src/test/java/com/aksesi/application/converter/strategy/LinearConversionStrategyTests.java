@@ -1,12 +1,12 @@
 package com.aksesi.application.converter.strategy;
 
 import com.aksesi.application.converter.exception.ConversionException;
-import com.aksesi.application.shape.direction.AngleOfInclination;
-import com.aksesi.application.shape.direction.exception.ResolvingException;
-import com.aksesi.application.shape.direction.IDirectionResolver;
 import com.aksesi.application.element.Gesture;
 import com.aksesi.application.shape.Line;
 import com.aksesi.application.shape.Shape;
+import com.aksesi.application.shape.direction.AngleOfInclination;
+import com.aksesi.application.shape.direction.IDirectionResolver;
+import com.aksesi.application.shape.direction.exception.ResolvingException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -19,8 +19,6 @@ import java.util.List;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyDouble;
-import static org.mockito.ArgumentMatchers.anyObject;
 import static org.mockito.Mockito.when;
 
 /**
