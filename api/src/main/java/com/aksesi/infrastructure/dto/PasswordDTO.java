@@ -1,6 +1,5 @@
 package com.aksesi.infrastructure.dto;
 
-import com.aksesi.application.element.Character;
 import com.aksesi.application.element.Password;
 import com.aksesi.infrastructure.annotation.Representation;
 

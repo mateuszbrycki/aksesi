@@ -1,11 +1,8 @@
 package com.aksesi.configuration;
 
-import org.apache.log4j.Logger;
+import com.aksesi.infrastructure.logger.AksesiLogger;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.convert.converter.Converter;
@@ -26,12 +23,12 @@ public class ConverterRegistryPostProcessor implements BeanPostProcessor, Applic
 
     private ApplicationContext appCtx;
 
-    private static final Logger logger = Logger.getLogger(ConverterRegistryPostProcessor.class);
+    private static final AksesiLogger logger = AksesiLogger.getLogger(ConverterRegistryPostProcessor.class.getName());
 
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
         if (CONVERSION_SERVICE_NAME.equals(beanName)) {
-            logger.debug("ConversionService bean detected");
+            logger.info("ConversionService bean detected");
 
             Map<String, Converter> beansOfType = appCtx.getBeansOfType(Converter.class);
             DefaultFormattingConversionService conversionFactoryBean = (DefaultFormattingConversionService) bean;

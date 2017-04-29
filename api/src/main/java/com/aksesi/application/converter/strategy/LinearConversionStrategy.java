@@ -1,12 +1,12 @@
 package com.aksesi.application.converter.strategy;
 
-import com.aksesi.application.shape.Line;
 import com.aksesi.application.converter.exception.ConversionException;
-import com.aksesi.application.shape.direction.AngleOfInclination;
-import com.aksesi.application.shape.direction.exception.ResolvingException;
-import com.aksesi.application.shape.direction.IDirectionResolver;
 import com.aksesi.application.element.Gesture;
+import com.aksesi.application.shape.Line;
 import com.aksesi.application.shape.Shape;
+import com.aksesi.application.shape.direction.AngleOfInclination;
+import com.aksesi.application.shape.direction.IDirectionResolver;
+import com.aksesi.application.shape.direction.exception.ResolvingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

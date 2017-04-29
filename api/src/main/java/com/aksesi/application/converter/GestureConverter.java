@@ -5,7 +5,6 @@ import com.aksesi.application.converter.strategy.IConversionStrategy;
 import com.aksesi.application.element.Gesture;
 import com.aksesi.application.shape.Shape;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**

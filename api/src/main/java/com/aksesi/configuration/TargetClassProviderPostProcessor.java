@@ -2,6 +2,7 @@ package com.aksesi.configuration;
 
 import com.aksesi.infrastructure.annotation.Representation;
 import com.aksesi.infrastructure.converter.TargetClassProvider;
+import com.aksesi.infrastructure.logger.AksesiLogger;
 import org.reflections.Reflections;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -46,6 +47,8 @@ public class TargetClassProviderPostProcessor implements BeanPostProcessor {
 
     private class ClassRegistrationLogic implements Consumer<Class<?>> {
 
+        private final AksesiLogger logger = AksesiLogger.getLogger(ClassRegistrationLogic.class.getName());
+
         private final TargetClassProvider provider;
 
         public ClassRegistrationLogic(TargetClassProvider provider) {
@@ -63,6 +66,8 @@ public class TargetClassProviderPostProcessor implements BeanPostProcessor {
             }
 
             Representation representation = aClass.getAnnotation(annotationClass);
+
+            logger.info("Registering converter for class " + representation.element());
             provider.register(clazz, representation.element());
         }
     }

@@ -1,13 +1,11 @@
 package com.aksesi.infrastructure.template;
 
-import com.aksesi.infrastructure.response.AksesiResponseHandler;
 import com.aksesi.infrastructure.response.AksesiResponseHandlerProvider;
 import org.apache.http.impl.client.HttpClients;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 
 /**
  * Created by Mateusz Brycki on 29/04/2017.
