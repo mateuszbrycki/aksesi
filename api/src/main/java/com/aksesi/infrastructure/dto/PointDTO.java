@@ -1,6 +1,5 @@
 package com.aksesi.infrastructure.dto;
 
-import com.aksesi.application.element.Character;
 import com.aksesi.application.element.Gesture;
 import com.aksesi.infrastructure.annotation.Representation;
 

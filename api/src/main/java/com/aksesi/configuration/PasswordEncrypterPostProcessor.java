@@ -2,7 +2,7 @@ package com.aksesi.configuration;
 
 import com.aksesi.application.converter.AbstractConverter;
 import com.aksesi.application.encrypter.PasswordEncrypter;
-import org.apache.log4j.Logger;
+import com.aksesi.infrastructure.logger.AksesiLogger;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.ApplicationContext;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Consumer;
 
 /**
  * Created by Mateusz Brycki on 04/04/2017.
@@ -21,6 +20,8 @@ import java.util.function.Consumer;
 public class PasswordEncrypterPostProcessor implements BeanPostProcessor, ApplicationContextAware {
 
     private ApplicationContext applicationContext;
+
+    private static final AksesiLogger logger = AksesiLogger.getLogger(PasswordEncrypterPostProcessor.class.getName());
 
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {

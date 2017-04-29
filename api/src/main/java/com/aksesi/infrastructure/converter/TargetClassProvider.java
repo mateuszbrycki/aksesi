@@ -1,10 +1,6 @@
 package com.aksesi.infrastructure.converter;
 
-import com.aksesi.application.element.Character;
-import com.aksesi.application.element.Gesture;
 import com.aksesi.application.element.PasswordElement;
-import com.aksesi.infrastructure.dto.CharacterDTO;
-import com.aksesi.infrastructure.dto.GestureDTO;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;

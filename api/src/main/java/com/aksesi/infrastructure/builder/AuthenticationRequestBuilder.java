@@ -2,6 +2,7 @@ package com.aksesi.infrastructure.builder;
 
 import com.aksesi.infrastructure.dto.AuthenticationRequestDTO;
 import com.aksesi.infrastructure.dto.InputConfiguration;
+import com.aksesi.infrastructure.logger.AksesiLogger;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.http.HttpEntity;
@@ -18,12 +19,14 @@ import org.springframework.util.MultiValueMap;
 @Component
 public class AuthenticationRequestBuilder {
 
+    private static AksesiLogger log = AksesiLogger.getLogger(AuthenticationRequestBuilder.class.getName());
+
     public HttpEntity<String> build(AuthenticationRequestDTO request, String convertedPassword)
         throws BuildingAuthenticationRequestException
     {
+        log.info("Building authentication request with password " + convertedPassword);
 
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
-
         headers.add(HttpHeaders.CONTENT_TYPE, "application/json");
         headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
 
@@ -38,6 +41,7 @@ public class AuthenticationRequestBuilder {
 
         HttpEntity<String> authenticationRequest = new HttpEntity<>(requestBody.toString(), headers);
 
+        log.info("Built request " + authenticationRequest);
         return authenticationRequest;
     }
 }
