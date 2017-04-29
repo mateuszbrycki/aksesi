@@ -5,3 +5,5 @@
 #frontend dependencies
 front/node_modules/*
 *.log
+
+public/js/aksesi.min.js
