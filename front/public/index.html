@@ -29,18 +29,18 @@
 <body>
 <div id="content">
 
-    <form role="form" class="login-form" id="authentication-form" action="my-awesome-startup.io" method="POST">
+    <form role="form" class="login-form" id="authentication-form" action="http://192.168.1.103:8082/login" method="POST">
         <h3>Login to our site</h3>
         <div class="form-group">
-            <label class="sr-only" for="form-username">Username</label>
-            <input type="text" name="form-username" placeholder="Username..."
-                   class="form-username form-control" id="form-username">
+            <label class="sr-only" for="login">Login</label>
+            <input type="text" name="login" placeholder="Login..."
+                   class="form-username form-control" id="login">
         </div>
 
         <div class="form-group">
             <div id="password-area">
-                <label class="sr-only" for="form-password">Password</label>
-                <input name="form-password" type="password" id="form-password" placeholder="Password..."
+                <label class="sr-only" for="password">Password</label>
+                <input name="password" type="password" id="password" placeholder="Password..."
                        class="form-control form-password"/>
             </div>
         </div>

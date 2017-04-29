@@ -2,7 +2,6 @@ package com.aksesi.application.shape.direction;
 
 import com.aksesi.application.shape.Line;
 import com.aksesi.application.shape.direction.exception.ResolvingException;
-import com.aksesi.application.shape.direction.LineDirectionResolver;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;

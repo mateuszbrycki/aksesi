@@ -5,7 +5,6 @@ import com.aksesi.application.element.ElementSuite;
 import com.aksesi.application.encrypter.PasswordEncrypterTests;
 import com.aksesi.application.shape.LineTests;
 import com.aksesi.infrastructure.InfrastructureSuite;
-import com.aksesi.infrastructure.converter.TargetClassProviderTests;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
