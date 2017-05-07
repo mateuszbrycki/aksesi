@@ -27,8 +27,7 @@ public class AuthenticationRequestBuilder {
         log.info("Building authentication request with password " + convertedPassword);
 
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
-        headers.add(HttpHeaders.CONTENT_TYPE, "application/json");
-        headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+        headers.setAll(request.getConfiguration().getHeaders());
 
         JSONObject requestBody = new JSONObject();
         try {

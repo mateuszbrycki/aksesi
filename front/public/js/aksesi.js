@@ -24,7 +24,7 @@ var AKSESI = (function () {
     var passwordElement;
     var akesiEventHandler;
 
-    var _setupFormForwarding = function (parentElement, authenticationFormId) {
+    var _setupFormForwarding = function (parentElement, authenticationFormId, headers) {
         var form = $(authenticationFormId);
 
         form.submit(function (e) {
@@ -34,7 +34,7 @@ var AKSESI = (function () {
             var loginInput = getLoginInput($form);
 
             var inputConfiguration = createInputConfiguration($form);
-            var configuration = new Configuration(inputConfiguration, $form.attr("action"), $form.attr("method"));
+            var configuration = new Configuration(inputConfiguration, headers, $form.attr("action"), $form.attr("method"));
 
             var password = akesiEventHandler.getPassword();
             var authenticationRequest = new AuthenticationRequest(loginInput.val(), password, configuration);
@@ -148,8 +148,21 @@ var AKSESI = (function () {
 
     return {
         init: function (configuration) {
-            var authenticationFormId = configuration['formName'];
-            var enableDeveloperLog = configuration['showDevConsole'];
+
+            var authenticationFormId = [];
+            if('formName' in configuration) {
+                authenticationFormId = configuration['formName'];
+            }
+
+            var enableDeveloperLog = [];
+            if('showDevConsole' in configuration) {
+                enableDeveloperLog = configuration['showDevConsole'];
+            }
+
+            var headers = [];
+            if('headers' in configuration) {
+                headers = configuration['headers'];
+            }
 
             akesiEventHandler = new AksesiEventHandler();
 
@@ -159,7 +172,7 @@ var AKSESI = (function () {
                 _addAksesiMessageArea(authenticationFormId);
                 _setupAksesiEvents(this);
                 _addAksesiDeveloperArea(enableDeveloperLog);
-                _setupFormForwarding(this, authenticationFormId);
+                _setupFormForwarding(this, authenticationFormId, headers);
             });
         }
     }

@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import static com.aksesi.utils.ResponseUtils.prepareResponse;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
@@ -181,7 +182,7 @@ public class AksesiContextApplicationTests {
 
         PasswordDTO password = new PasswordDTO(Arrays.asList(elements));
         InputConfiguration inputConfiguration = new InputConfiguration("login", "password");
-        ConfigurationDTO configuration = new ConfigurationDTO(inputConfiguration, URL, METHOD.name());
+        ConfigurationDTO configuration = new ConfigurationDTO(inputConfiguration, URL, METHOD.name(), Collections.emptyMap());
         AuthenticationRequestDTO request = new AuthenticationRequestDTO(TEST_LOGIN, password, configuration);
 
         return request;
