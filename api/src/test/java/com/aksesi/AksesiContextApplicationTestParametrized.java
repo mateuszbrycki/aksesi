@@ -27,6 +27,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import static com.aksesi.utils.ResponseUtils.prepareResponse;
@@ -122,7 +123,7 @@ public class AksesiContextApplicationTestParametrized {
 
         InputConfiguration inputConfiguration = new InputConfiguration("login", "password");
 
-        ConfigurationDTO configuration = new ConfigurationDTO(inputConfiguration, URL, METHOD.name());
+        ConfigurationDTO configuration = new ConfigurationDTO(inputConfiguration, URL, METHOD.name(), Collections.emptyMap());
 
         AuthenticationRequestDTO request = new AuthenticationRequestDTO(TEST_LOGIN, password, configuration);
 

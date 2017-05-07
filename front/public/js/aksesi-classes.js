@@ -60,7 +60,8 @@ function InputConfiguration(login, password) {
     this.passwordName = password;
 }
 
-function Configuration(inputConfiguration, url, method) {
+function Configuration(inputConfiguration, headers, url, method) {
+    this.headers = headers;
     this.url = url;
     this.method = method;
     this.inputConfiguration = inputConfiguration;
