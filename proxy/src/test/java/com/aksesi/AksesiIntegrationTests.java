@@ -4,7 +4,7 @@ import com.aksesi.application.converter.AbstractConverter;
 import com.aksesi.application.converter.CharacterConverter;
 import com.aksesi.application.converter.GestureConverter;
 import com.aksesi.application.converter.strategy.IConversionStrategy;
-import com.aksesi.application.converter.strategy.LinearConversionStrategy;
+import com.aksesi.application.converter.strategy.linear.LinearConversionStrategy;
 import com.aksesi.application.element.Character;
 import com.aksesi.application.element.Gesture;
 import com.aksesi.application.element.Password;
@@ -80,8 +80,8 @@ public class AksesiIntegrationTests {
     public void onlyGestureElementTest() {
         setupPassword(
                 new Gesture(Arrays.asList(
-                        new Gesture.Point(1L, 1L),
-                        new Gesture.Point(2L, 2L)
+                        new Gesture.Point(1f, 1f),
+                        new Gesture.Point(2f, 2f)
                 ))
         );
 
@@ -94,15 +94,15 @@ public class AksesiIntegrationTests {
     public void combineGesturesAndCharactersElementTest1() {
         setupPassword(
                 new Gesture(Arrays.asList( //LineDIAGONAL_RIGHT
-                        new Gesture.Point(1L, 1L),
-                        new Gesture.Point(2L, 2L)
+                        new Gesture.Point(1f, 1f),
+                        new Gesture.Point(2f, 2f)
                 )),
                 new Character('a'), //a
                 new Character('b'), //b
                 new Character('d'), //d
                 new Gesture(Arrays.asList( //LineDIAGONAL_LEFT
-                        new Gesture.Point(1L, 2L),
-                        new Gesture.Point(2L, 1L)
+                        new Gesture.Point(1f, 2f),
+                        new Gesture.Point(2f, 1f)
                 ))
 
         );
@@ -116,18 +116,18 @@ public class AksesiIntegrationTests {
     public void combineGesturesAndCharactersElementTest2() {
         setupPassword(
                 new Gesture(Arrays.asList( //LineDIAGONAL_RIGHT
-                        new Gesture.Point(1L, 1L),
-                        new Gesture.Point(2L, 2L)
+                        new Gesture.Point(1f, 1f),
+                        new Gesture.Point(2f, 2f)
                 )),
                 new Character('a'), //a
                 new Gesture(Arrays.asList( //LineDIAGONAL_VETRICAL
-                        new Gesture.Point(1L, 1L),
-                        new Gesture.Point(1L, 2L)
+                        new Gesture.Point(1f, 1f),
+                        new Gesture.Point(1f, 2f)
                 )),
                 new Character('b'), //b
                 new Gesture(Arrays.asList( //LineHORIZONTAL
-                        new Gesture.Point(1L, 1L),
-                        new Gesture.Point(2L, 1L)
+                        new Gesture.Point(1f, 1f),
+                        new Gesture.Point(2f, 1f)
                 )),
                 new Character('\\'), // \
                 new Character('$') //d

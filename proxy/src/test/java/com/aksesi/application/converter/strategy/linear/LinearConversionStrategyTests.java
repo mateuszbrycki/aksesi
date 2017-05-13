@@ -1,6 +1,7 @@
-package com.aksesi.application.converter.strategy;
+package com.aksesi.application.converter.strategy.linear;
 
 import com.aksesi.application.converter.exception.ConversionException;
+import com.aksesi.application.converter.strategy.linear.LinearConversionStrategy;
 import com.aksesi.application.element.Gesture;
 import com.aksesi.application.shape.Line;
 import com.aksesi.application.shape.Shape;
@@ -50,8 +51,8 @@ public class LinearConversionStrategyTests {
         when(resolver.resolve(any(AngleOfInclination.class))).thenThrow(new ResolvingException("Message"));
         setupGesturePoints(
                 Arrays.asList(
-                        new Gesture.Point(1L, 1L),
-                        new Gesture.Point(2L, 1L)
+                        new Gesture.Point(1f, 1f),
+                        new Gesture.Point(2f, 1f)
                 )
         );
 
@@ -66,8 +67,8 @@ public class LinearConversionStrategyTests {
 
         setupGesturePoints(
                 Arrays.asList(
-                        new Gesture.Point(1L, 1L),
-                        new Gesture.Point(2L, 1L)
+                        new Gesture.Point(1f, 1f),
+                        new Gesture.Point(2f, 1f)
                 )
         );
 
@@ -85,8 +86,8 @@ public class LinearConversionStrategyTests {
 
         setupGesturePoints(
                 Arrays.asList(
-                    new Gesture.Point(1L, 1L),
-                    new Gesture.Point(2L, 1L)
+                    new Gesture.Point(1f, 1f),
+                    new Gesture.Point(2f, 1f)
                 )
         );
 
@@ -104,8 +105,8 @@ public class LinearConversionStrategyTests {
 
         setupGesturePoints(
                 Arrays.asList(
-                    new Gesture.Point(1L, 1L),
-                    new Gesture.Point(2L, 1L)
+                    new Gesture.Point(1f, 1f),
+                    new Gesture.Point(2f, 1f)
                 )
         );
 
@@ -123,8 +124,8 @@ public class LinearConversionStrategyTests {
 
         setupGesturePoints(
                 Arrays.asList(
-                    new Gesture.Point(1L, 1L),
-                    new Gesture.Point(2L, 1L)
+                    new Gesture.Point(1f, 1f),
+                    new Gesture.Point(2f, 1f)
                 )
         );
 

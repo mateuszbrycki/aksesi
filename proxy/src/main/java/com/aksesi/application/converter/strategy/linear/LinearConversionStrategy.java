@@ -1,6 +1,7 @@
-package com.aksesi.application.converter.strategy;
+package com.aksesi.application.converter.strategy.linear;
 
 import com.aksesi.application.converter.exception.ConversionException;
+import com.aksesi.application.converter.strategy.IConversionStrategy;
 import com.aksesi.application.element.Gesture;
 import com.aksesi.application.shape.Line;
 import com.aksesi.application.shape.Shape;
@@ -8,6 +9,7 @@ import com.aksesi.application.shape.direction.AngleOfInclination;
 import com.aksesi.application.shape.direction.IDirectionResolver;
 import com.aksesi.application.shape.direction.exception.ResolvingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
