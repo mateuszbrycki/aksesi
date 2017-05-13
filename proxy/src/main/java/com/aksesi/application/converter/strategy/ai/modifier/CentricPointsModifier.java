@@ -14,6 +14,7 @@ import java.util.stream.Stream;
 /**
  * Created by Mateusz Brycki on 13/05/2017.
  */
+//TODO mbrycki should handle extending or limiting gesture points number
 @Component
 public class CentricPointsModifier implements IGesturePointsModifier {
     @Override

@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -28,6 +29,9 @@ public class AIConversionStrategyTests {
     private IGesturePointsModifier modifier;
 
     @Mock
+    private IArraySupplier supplier;
+
+    @Mock
     private Gesture gestureElement;
 
     @Test(expected = ConversionException.class)
@@ -35,7 +39,7 @@ public class AIConversionStrategyTests {
 
 //        when(modifier.modify(any(List.class))).thenReturn(Collections.emptyList());
 
-        AIConversionStrategy strategy = new AIConversionStrategy(modifier);
+        AIConversionStrategy strategy = new AIConversionStrategy(modifier, supplier);
 
         strategy.convert(gestureElement);
     }
@@ -52,7 +56,9 @@ public class AIConversionStrategyTests {
         setupGesturePoints(points);
 //        when(modifier.modify(any(List.class))).thenReturn(points);
 
-        AIConversionStrategy strategy = new AIConversionStrategy(modifier);
+        when(supplier.apply(any(Collection.class))).thenReturn(Collections.emptyList());
+
+        AIConversionStrategy strategy = new AIConversionStrategy(modifier, supplier);
 
         Shape result = strategy.convert(gestureElement);
 
