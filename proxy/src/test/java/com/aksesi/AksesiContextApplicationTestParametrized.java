@@ -89,10 +89,10 @@ public class AksesiContextApplicationTestParametrized {
         return Arrays.asList(new Object[][]{
                 {Arrays.asList(new CharacterDTO('a')), "a", withSuccess("a", MediaType.APPLICATION_JSON)},
                 {Arrays.asList(new GestureDTO(Arrays.asList(
-                        new PointDTO(1L, 1L), new PointDTO(2L, 2L)
+                        new PointDTO(1f, 1f), new PointDTO(2f, 2f)
                 ))), "LineDIAGONAL_RIGHT", withSuccess("LineDIAGONAL_RIGHT", MediaType.APPLICATION_JSON)},
                 {Arrays.asList(new CharacterDTO('a'), new GestureDTO(Arrays.asList(
-                        new PointDTO(1L, 1L), new PointDTO(2L, 2L)
+                        new PointDTO(1f, 1f), new PointDTO(2f, 2f)
                 ))), "aLineDIAGONAL_RIGHT", withSuccess("aLineDIAGONAL_RIGHT", MediaType.APPLICATION_JSON)}
         });
     }

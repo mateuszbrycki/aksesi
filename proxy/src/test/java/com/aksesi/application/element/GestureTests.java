@@ -28,8 +28,8 @@ public class GestureTests {
     @Test
     public void getPointsTest() {
         List<Gesture.Point> points = Arrays.asList(
-                new Gesture.Point(1L,1L),
-                new Gesture.Point(2L,2L)
+                new Gesture.Point(1f,1f),
+                new Gesture.Point(2f,2f)
         );
         Gesture element = new Gesture(points);
 

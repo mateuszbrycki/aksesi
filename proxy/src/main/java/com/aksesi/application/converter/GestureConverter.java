@@ -5,6 +5,7 @@ import com.aksesi.application.converter.strategy.IConversionStrategy;
 import com.aksesi.application.element.Gesture;
 import com.aksesi.application.shape.Shape;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,7 +16,7 @@ public class GestureConverter extends AbstractConverter<Gesture> {
 
     private IConversionStrategy conversionStrategy;
 
-    public GestureConverter(@Autowired IConversionStrategy strategy) {
+    public GestureConverter(@Autowired @Qualifier("linearConversionStrategy") IConversionStrategy strategy) {
         super(Gesture.class);
         this.conversionStrategy = strategy;
     }

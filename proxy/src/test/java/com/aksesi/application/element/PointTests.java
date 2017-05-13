@@ -12,8 +12,8 @@ import static org.junit.Assert.assertEquals;
 @RunWith(BlockJUnit4ClassRunner.class)
 public class PointTests {
 
-    private final Long X = 100L;
-    private final Long Y = 150L;
+    private final Float X = 100f;
+    private final Float Y = 150f;
 
     @Test
     public void getPointPointsTest() {

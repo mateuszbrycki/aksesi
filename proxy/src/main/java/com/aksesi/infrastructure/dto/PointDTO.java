@@ -11,29 +11,29 @@ import java.io.Serializable;
 @Representation(element = Gesture.Point.class)
 public class PointDTO implements Serializable{
 
-    private Long x;
-    private Long y;
+    private Float x;
+    private Float y;
 
     public PointDTO() {}
 
-    public PointDTO(Long x, Long y) {
+    public PointDTO(Float x, Float y) {
         this.x = x;
         this.y = y;
     }
 
-    public Long getX() {
+    public Float getX() {
         return x;
     }
 
-    public Long getY() {
+    public Float getY() {
         return y;
     }
 
-    public void setX(Long x) {
+    public void setX(Float x) {
         this.x = x;
     }
 
-    public void setY(Long y) {
+    public void setY(Float y) {
         this.y = y;
     }
 }

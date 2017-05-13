@@ -83,7 +83,7 @@ public class AksesiContextApplicationTests {
     public void testHttpStatusWithCharacterAndGesture() throws Exception {
         AuthenticationRequestDTO request = setupPassword(
                 new GestureDTO(Arrays.asList(
-                        new PointDTO(1L,1L),new PointDTO(2L,2L)
+                        new PointDTO(1f,1f),new PointDTO(2f,2f)
                 ))
         );
 
@@ -108,7 +108,7 @@ public class AksesiContextApplicationTests {
         AuthenticationRequestDTO request = setupPassword(
                 new CharacterDTO('a'),
                 new GestureDTO(Arrays.asList(
-                    new PointDTO(1L,1L),new PointDTO(2L,2L)
+                    new PointDTO(1f,1f),new PointDTO(2f,2f)
                 ))
         );
 
@@ -133,7 +133,7 @@ public class AksesiContextApplicationTests {
         AuthenticationRequestDTO request = setupPassword(
                 new CharacterDTO('a'),
                 new GestureDTO(Arrays.asList(
-                    new PointDTO(1L,1L),new PointDTO(2L,2L)
+                    new PointDTO(1f,1f),new PointDTO(2f,2f)
                 ))
         );
 
@@ -157,7 +157,7 @@ public class AksesiContextApplicationTests {
         AuthenticationRequestDTO request = setupPassword(
                 new CharacterDTO('a'),
                 new GestureDTO(Arrays.asList(
-                    new PointDTO(1L,1L),new PointDTO(2L,2L)
+                    new PointDTO(1f,1f),new PointDTO(2f,2f)
                 ))
         );
 
