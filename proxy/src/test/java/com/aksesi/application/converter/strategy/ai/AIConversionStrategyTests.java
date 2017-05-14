@@ -26,10 +26,13 @@ import static org.mockito.Mockito.when;
 public class AIConversionStrategyTests {
 
     @Mock
-    private IGesturePointsModifier modifier;
+    private IGesturePointsAligner modifier;
 
     @Mock
-    private IArraySupplier supplier;
+    private IFormattedInputSupplier supplier;
+
+    @Mock
+    private IGestureResizer resizer;
 
     @Mock
     private Gesture gestureElement;
@@ -37,9 +40,9 @@ public class AIConversionStrategyTests {
     @Test(expected = ConversionException.class)
     public void testEmptyGesture() throws ConversionException {
 
-//        when(modifier.modify(any(List.class))).thenReturn(Collections.emptyList());
+//        when(modifier.align(any(List.class))).thenReturn(Collections.emptyList());
 
-        AIConversionStrategy strategy = new AIConversionStrategy(modifier, supplier);
+        AIConversionStrategy strategy = new AIConversionStrategy(modifier, supplier, resizer);
 
         strategy.convert(gestureElement);
     }
@@ -54,11 +57,11 @@ public class AIConversionStrategyTests {
         );
 
         setupGesturePoints(points);
-//        when(modifier.modify(any(List.class))).thenReturn(points);
+//        when(modifier.align(any(List.class))).thenReturn(points);
 
-        when(supplier.apply(any(Collection.class))).thenReturn(Collections.emptyList());
+        when(supplier.apply(any(List.class))).thenReturn(Collections.emptyList());
 
-        AIConversionStrategy strategy = new AIConversionStrategy(modifier, supplier);
+        AIConversionStrategy strategy = new AIConversionStrategy(modifier, supplier, resizer);
 
         Shape result = strategy.convert(gestureElement);
 

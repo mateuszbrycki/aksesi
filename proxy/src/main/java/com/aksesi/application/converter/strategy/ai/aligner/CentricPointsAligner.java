@@ -1,6 +1,6 @@
-package com.aksesi.application.converter.strategy.ai.modifier;
+package com.aksesi.application.converter.strategy.ai.aligner;
 
-import com.aksesi.application.converter.strategy.ai.IGesturePointsModifier;
+import com.aksesi.application.converter.strategy.ai.IGesturePointsAligner;
 import com.aksesi.application.element.Gesture.Point;
 import org.springframework.stereotype.Component;
 
@@ -14,11 +14,11 @@ import java.util.stream.Stream;
 /**
  * Created by Mateusz Brycki on 13/05/2017.
  */
-//TODO mbrycki should handle extending or limiting gesture points number
 @Component
-public class CentricPointsModifier implements IGesturePointsModifier {
+public class CentricPointsAligner implements IGesturePointsAligner {
+
     @Override
-    public Collection<Point> modify(Collection<Point> points) {
+    public List<Point> align(List<Point> points) {
 
         if(points.size() < 1) {
             return Collections.emptyList();

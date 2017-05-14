@@ -18,25 +18,30 @@ import java.util.stream.IntStream;
 @Component
 public class AIConversionStrategy implements IConversionStrategy {
 
-    private IGesturePointsModifier pointsModifier;
-    private IArraySupplier arraySupplier;
+    private IGesturePointsAligner pointsAligner;
+    private IFormattedInputSupplier formattedInputSupplier;
+    private IGestureResizer gestureResizer;
 
-    public AIConversionStrategy(IGesturePointsModifier pointsModifier, IArraySupplier arraySupplier) {
-        this.pointsModifier = pointsModifier;
-        this.arraySupplier = arraySupplier;
+    public AIConversionStrategy(IGesturePointsAligner pointsAligner,
+                                IFormattedInputSupplier formattedInputSupplier,
+                                IGestureResizer gestureResizer) {
+        this.pointsAligner = pointsAligner;
+        this.formattedInputSupplier = formattedInputSupplier;
+        this.gestureResizer = gestureResizer;
     }
 
     @Override
     public Shape convert(Gesture element) throws ConversionException {
 
-        Collection<Gesture.Point> pointList = element.points();
+        List<Gesture.Point> pointsList = element.points();
 
-        if(pointList.size() < 2) {
+        if(pointsList.size() < 2) {
             throw new ConversionException("Gesture should be more than 2 points long.");
         }
 
-        pointList = pointsModifier.modify(pointList);
-        double[] normalizedArray = normalizePoints(pointList);
+        pointsList = pointsAligner.align(pointsList);
+        pointsList = gestureResizer.resize(pointsList);
+        double[] normalizedArray = normalizePoints(pointsList);
 
         //TODO mbrycki pass gesture to the neural network -> service layer
         //TODO mbrycki return the result
@@ -44,8 +49,8 @@ public class AIConversionStrategy implements IConversionStrategy {
         return new Line(Line.LineDirection.DIAGONAL_LEFT);
     }
 
-    private double[] normalizePoints(Collection<Gesture.Point> points) {
-        List<Double> listOfElements = arraySupplier.apply(points);
+    private double[] normalizePoints(List<Gesture.Point> points) {
+        List<Double> listOfElements = formattedInputSupplier.apply(points);
 
         double[] arrayOfElements = new double[listOfElements.size()];
 
