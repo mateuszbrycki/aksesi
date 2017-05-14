@@ -1,7 +1,8 @@
 package com.aksesi.application.converter.strategy.ai;
 
-import com.aksesi.application.converter.strategy.ai.modifier.CentricPointsModifierTests;
-import com.aksesi.application.converter.strategy.ai.supplier.PointsToArraySupplierTests;
+import com.aksesi.application.converter.strategy.ai.aligner.CentricPointsAlignerTests;
+import com.aksesi.application.converter.strategy.ai.resizer.RepeatingResizerTests;
+import com.aksesi.application.converter.strategy.ai.supplier.FlattenPointsSupplierTests;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -11,8 +12,9 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
         AIConversionStrategyTests.class,
-        CentricPointsModifierTests.class,
-        PointsToArraySupplierTests.class
+        CentricPointsAlignerTests.class,
+        FlattenPointsSupplierTests.class,
+        RepeatingResizerTests.class
 })
 public class AISuite {
 }

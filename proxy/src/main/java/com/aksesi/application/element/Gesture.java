@@ -53,5 +53,13 @@ public class Gesture implements PasswordElement{
             result = 31 * result + (y != null ? y.hashCode() : 0);
             return result;
         }
+
+        @Override
+        public String toString() {
+            return "Point{" +
+                    "x=" + x +
+                    ", y=" + y +
+                    '}';
+        }
     }
 }

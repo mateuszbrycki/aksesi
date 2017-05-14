@@ -14,9 +14,9 @@ import static org.junit.Assert.assertSame;
 /**
  * Created by Mateusz Brycki on 14/05/2017.
  */
-public class PointsToArraySupplierTests {
+public class FlattenPointsSupplierTests {
 
-    PointsToArraySupplier supplier = new PointsToArraySupplier();
+    FlattenPointsSupplier supplier = new FlattenPointsSupplier();
 
     @Test
     public void testEmptyList() {

@@ -1,10 +1,11 @@
-package com.aksesi.application.converter.strategy.ai.modifier;
+package com.aksesi.application.converter.strategy.ai.aligner;
 
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -15,14 +16,14 @@ import static com.aksesi.application.element.Gesture.Point;
  * Created by Mateusz Brycki on 13/05/2017.
  */
 
-public class CentricPointsModifierTests {
+public class CentricPointsAlignerTests {
 
-    private CentricPointsModifier modifier = new CentricPointsModifier();
+    private CentricPointsAligner aligner = new CentricPointsAligner();
 
     @Test
     public void testModifyEmptyList() {
 
-        Collection<Point> result = modifier.modify(Collections.emptyList());
+        Collection<Point> result = aligner.align(Collections.emptyList());
 
         assertEquals(Collections.emptyList(), result);
 
@@ -31,11 +32,11 @@ public class CentricPointsModifierTests {
     @Test
     public void testOneElementList() {
 
-        Collection<Point> points = Arrays.asList(
+        List<Point> points = Arrays.asList(
                 new Point(1f, 1f)
         );
 
-        Collection<Point> result = modifier.modify(points);
+        Collection<Point> result = aligner.align(points);
 
         assertEquals(1, result.size());
         assertTrue(result.contains(new Point(0.f, 0.f)));
@@ -44,13 +45,13 @@ public class CentricPointsModifierTests {
     @Test
     public void testThreeElementsList() {
 
-        Collection<Point> points = Arrays.asList(
+        List<Point> points = Arrays.asList(
                 new Point(10f, 8f),
                 new Point(13.5f, 5.5f),
                 new Point(17f, 3f)
         );
 
-        Collection<Point> result = modifier.modify(points);
+        Collection<Point> result = aligner.align(points);
 
         assertEquals(3, result.size());
         assertTrue(result.contains(new Point(0f, 0f)));
@@ -61,7 +62,7 @@ public class CentricPointsModifierTests {
     @Test
     public void testSquarElementsList() {
 
-        Collection<Point> points = Arrays.asList(
+        List<Point> points = Arrays.asList(
             new Point(-7f, -7f),
             new Point(-8f, -7f),
             new Point(-9f, -7f),
@@ -72,7 +73,7 @@ public class CentricPointsModifierTests {
             new Point(-7f, -8f)
         );
 
-        Collection<Point> result = modifier.modify(points);
+        Collection<Point> result = aligner.align(points);
 
         assertEquals(8, result.size());
 
@@ -89,7 +90,7 @@ public class CentricPointsModifierTests {
     @Test
     public void testCircleElementsList() {
 
-        Collection<Point> points = Arrays.asList(
+        List<Point> points = Arrays.asList(
                 new Point(11f, 5f),
                 new Point(12f, 4f),
                 new Point(13f, 3f),
@@ -116,7 +117,7 @@ public class CentricPointsModifierTests {
                 new Point(11f, 6f)
         );
 
-        Collection<Point> result = modifier.modify(points);
+        Collection<Point> result = aligner.align(points);
 
         assertEquals(24, result.size());
 
