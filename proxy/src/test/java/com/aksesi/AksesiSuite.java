@@ -4,6 +4,8 @@ import com.aksesi.application.converter.ConverterSuite;
 import com.aksesi.application.element.ElementSuite;
 import com.aksesi.application.encrypter.PasswordEncrypterTests;
 import com.aksesi.application.shape.LineTests;
+import com.aksesi.application.shape.ShapeSuite;
+import com.aksesi.generator.GeneratorSuite;
 import com.aksesi.infrastructure.InfrastructureSuite;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -16,12 +18,13 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
         ElementSuite.class,
         ConverterSuite.class,
-        LineTests.class,
+        ShapeSuite.class,
         PasswordEncrypterTests.class,
         AksesiIntegrationTests.class,
         AksesiContextApplicationTests.class,
         AksesiContextApplicationTestParametrized.class,
-        InfrastructureSuite.class
+        InfrastructureSuite.class,
+        GeneratorSuite.class
 })
 public class AksesiSuite {
 }
