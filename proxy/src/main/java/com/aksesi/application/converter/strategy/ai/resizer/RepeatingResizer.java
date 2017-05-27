@@ -19,7 +19,7 @@ import java.util.stream.IntStream;
 public class RepeatingResizer implements IGestureResizer {
 
     @Value("${aksesi.gesture-points-size}")
-    private static Integer GESTURE_SIZE;
+    private static Integer GESTURE_SIZE = 200;
 
     @Override
     public List<Gesture.Point> resize(List<Gesture.Point> points) {
