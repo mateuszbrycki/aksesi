@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Generator {
 
-    private static Configuration configuration = new Configuration(200, 1, 1, 400, -400);
+    private static Configuration configuration = new Configuration(200, 3, 1, 400, -400);
 
     private static List<IShapeGenerator> generators = new ArrayList<>();
 
@@ -61,42 +61,4 @@ public class Generator {
 
 }
 
-class ChartFrame extends ApplicationFrame {
-    public ChartFrame(String applicationTitle, String chartTitle, List<Point> points) {
-        super(applicationTitle);
 
-        JFreeChart lineChart = ChartFactory.createXYLineChart(
-                chartTitle,
-                "X", "Y",
-                createDataset(points),
-                PlotOrientation.VERTICAL,
-                true, true, false);
-
-        XYPlot plot = lineChart.getXYPlot();
-
-        XYDotRenderer renderer = new XYDotRenderer();
-        renderer.setDotHeight(3);
-        renderer.setDotWidth(3);
-
-        plot.setRenderer(renderer);
-
-        ChartPanel chartPanel = new ChartPanel(lineChart);
-        chartPanel.setPreferredSize(new java.awt.Dimension(560, 560));
-
-        setContentPane(chartPanel);
-
-    }
-
-    private XYDataset createDataset(List<Point> points) {
-
-        XYSeries series = new XYSeries("x");
-
-        for (Point point : points) {
-            series.add(point.getX().doubleValue(), point.getY().doubleValue());
-        }
-
-        XYDataset dataset = new XYSeriesCollection(series);
-        return dataset;
-    }
-
-}

@@ -26,13 +26,10 @@ import static org.mockito.Mockito.when;
 public class AIConversionStrategyTests {
 
     @Mock
-    private IGesturePointsAligner modifier;
+    private IGestureNormalizer normalizer;
 
     @Mock
-    private IFormattedInputSupplier supplier;
-
-    @Mock
-    private IGestureResizer resizer;
+    private INeuralNetwork neuralNetwork;
 
     @Mock
     private Gesture gestureElement;
@@ -42,7 +39,7 @@ public class AIConversionStrategyTests {
 
 //        when(modifier.align(any(List.class))).thenReturn(Collections.emptyList());
 
-        AIConversionStrategy strategy = new AIConversionStrategy(modifier, supplier, resizer);
+        AIConversionStrategy strategy = new AIConversionStrategy(normalizer, neuralNetwork);
 
         strategy.convert(gestureElement);
     }
@@ -59,9 +56,9 @@ public class AIConversionStrategyTests {
         setupGesturePoints(points);
 //        when(modifier.align(any(List.class))).thenReturn(points);
 
-        when(supplier.apply(any(List.class))).thenReturn(Collections.emptyList());
+        when(normalizer.normalize(any(List.class))).thenReturn(new double[0]);
 
-        AIConversionStrategy strategy = new AIConversionStrategy(modifier, supplier, resizer);
+        AIConversionStrategy strategy = new AIConversionStrategy(normalizer, neuralNetwork);
 
         Shape result = strategy.convert(gestureElement);
 
