@@ -16,7 +16,7 @@ In the final version, Aksesi is expected to work as a proxy between client's fro
 
 ![alt text](https://blog.mateuszbrycki.com/wp-content/uploads/2017/03/proxy-approach-ss-1024x341.png "Aksesi as a proxy")
  
-In this model, Aksesi is responsible only for gesture conversion. Its logic doesn’t depend on any other application. Secondly, a user sends the authentication request to the Aksesi Proxy, and then the proxy sends the request to the back-end application. It means that user is not able to see a converted password. Another advantage of this solution is that the back-end application doesn’t know about the proxy so it doesn’t matter if application e.g. uses Single Sign-On mechanism.
+In this model, Aksesi is responsible only for gesture conversion. Its logic doesn’t depend on any other application. A user sends the authentication request to the Aksesi Proxy, and then the proxy sends the request to the back-end application. It means that the user is not able to see a converted password. Another advantage of this solution is that the back-end application doesn’t know about the proxy so it doesn’t matter if application e.g. uses Single Sign-On mechanism.
 
 ### Security
 Aksesi provides the new level of passwords security. 
