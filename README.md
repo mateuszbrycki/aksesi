@@ -43,7 +43,7 @@ character-(set-of-points)-character-(set-of-points)-character
 If an attacker doesn’t have access to the converting application, then sets of points are useless. Finding textual gesture's representations will be very time-consuming or almost impossible.
 
 #### Passwords stored in a browser
-Aksesi's frontend module inserts gestures into an input as the '~' character. The client's browser will not save the points so it will be impossible to re-use a stored password. Note that it is one of the drawbacks when using mixed passwords.
+Aksesi's frontend module inserts gestures into an input as the '~' character. The client's browser will not save the points so it will be impossible to re-use a stored password. Note that this is one of the drawbacks when using mixed passwords.
 
 ### Author & contact
  Author: Mateusz Brycki
