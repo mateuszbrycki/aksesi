@@ -31,7 +31,7 @@ a-<line1>-b-<line2>-c
 a(string representation of line1)b(string representation of line2)c
 ```
 
-For the user, the password has the same length: 3 characters and 2 gestures but for the application/database it is a string consisting of many characters. 
+For the user, the password has the same length: 3 characters and 2 gestures but for the application/database it is a string consisting of many more characters. 
 
 #### Capturing HTTP request
 A web browser sends the password as a:
